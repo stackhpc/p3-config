@@ -1,0 +1,60 @@
+---
+# Configuration of OpenStack user environment for Performance Prototype
+# Platform (P-cubed).
+
+# Path to create virtualenv in which to install python dependencies.
+p3_venv: "{{ ansible_env.PWD }}/p3-config-venv"
+
+# Definition of the p3 project. Format is as required by the
+# stackhpc.os-projects role.
+p3_project:
+  name: p3
+  description: SKA SDP Performance Prototype Platform (P-cubed)
+  project_domain: default
+  user_domain: default
+  users: "{{ p3_users }}"
+  keypairs: "{{ p3_keypairs }}"
+  quotas: "{{ p3_quotas }}"
+
+# List of users in the p3 project. Format is as required by the
+# stackhpc.os-projects role.
+p3_users:
+  - name: ben
+    password: ben
+    roles: "{{ p3_admin_roles }}"
+  - name: chris
+    password: chris
+    roles: "{{ p3_admin_roles }}"
+  - name: mark
+    password: mark
+    roles: "{{ p3_admin_roles }}"
+  - name: paul
+    password: paul
+    roles: "{{ p3_admin_roles }}"
+  - name: steve
+    password: steve
+    roles: "{{ p3_admin_roles }}"
+  - name: stig
+    password: stig
+    roles: "{{ p3_admin_roles }}"
+
+# List of roles to apply to admin users in the p3 project.
+p3_admin_roles:
+  - admin
+  - heat_stack_owner
+
+# List of keypairs to register in the p3 project.
+p3_keypairs: []
+
+# Dict of quotas to set for the p3 project.
+p3_quotas:
+  cores: -1
+  floating_ips: -1
+  injected_files: -1
+  injected_file_size: -1
+  instances: -1
+  key_pairs: -1
+  fixed_ips: -1
+  ram: -1
+  secgroup_rules: -1
+  secgroups: -1
