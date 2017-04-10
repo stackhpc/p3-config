@@ -21,13 +21,13 @@ p3_project:
 p3_users:
   - name: ben
     password: ben
-    roles: "{{ p3_admin_roles }}"
+    roles: "{{ p3_user_roles }}"
   - name: chris
     password: chris
-    roles: "{{ p3_admin_roles }}"
+    roles: "{{ p3_user_roles }}"
   - name: john
     password: john
-    roles: "{{ p3_admin_roles }}"
+    roles: "{{ p3_user_roles }}"
   - name: mark
     password: mark
     roles: "{{ p3_admin_roles }}"
@@ -44,6 +44,10 @@ p3_users:
 # List of roles to apply to admin users in the p3 project.
 p3_admin_roles:
   - admin
+  - heat_stack_owner
+
+# List of roles to apply to admin users in the p3 project.
+p3_user_roles:
   - heat_stack_owner
 
 # List of keypairs to register in the p3 project.
