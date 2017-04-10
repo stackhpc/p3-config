@@ -25,6 +25,9 @@ p3_users:
   - name: chris
     password: chris
     roles: "{{ p3_admin_roles }}"
+  - name: john
+    password: john
+    roles: "{{ p3_admin_roles }}"
   - name: mark
     password: mark
     roles: "{{ p3_admin_roles }}"
