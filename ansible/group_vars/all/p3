@@ -40,6 +40,9 @@ p3_users:
   - name: stig
     password: stig
     roles: "{{ p3_admin_roles }}"
+  - name: vlad
+    password: vlad
+    roles: "{{ p3_user_roles }}"
 
 # List of roles to apply to admin users in the p3 project.
 p3_admin_roles:
