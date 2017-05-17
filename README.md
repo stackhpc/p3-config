@@ -24,4 +24,4 @@ To configure P-cubed OpenStack project and users:
     $ ansible-playbook \
         -i ansible/inventory \
         -e @etc/p3-config/p3-config.yml \
-        ansible/p3-project.yml
+        ansible/p3.yml

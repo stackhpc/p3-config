@@ -74,3 +74,62 @@ p3_quotas:
   ram: -1
   secgroup_rules: -1
   secgroups: -1
+
+###############################################################################
+# Configuration of networks, subnets and routers for P-cubed.
+
+# List of networks in the p3 project. Format is as required by the
+# stackhpc.os-networks role.
+p3_networks:
+  - "{{ p3_network }}"
+
+# P3 internal network name.
+p3_network_name: "p3-internal"
+
+# P3 internal network.
+p3_network:
+  name: "{{ p3_network_name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  shared: False
+  # Subnet configuration.
+  subnets:
+    - "{{ p3_subnet }}"
+
+# P3 internal subnet.
+p3_subnet:
+  name: "{{ p3_network_name }}"
+  cidr: "10.0.0.0/24"
+  gateway_ip: "10.0.0.1"
+  allocation_pool_start: "10.0.0.2"
+  allocation_pool_end: "10.0.0.254"
+
+# List of routers in the p3 project. Format is as required by the
+# stackhpc.os-networks role.
+p3_routers:
+  - "{{ p3_router }}"
+
+# P3 router.
+p3_router:
+  name: "{{ p3_network_name }}"
+  network: "ilab"
+  interfaces:
+    - "{{ p3_subnet.name }}"
+
+###############################################################################
+# Configuration of nova flavors for P-cubed.
+
+# List of nova flavors in the p3 project. Format is as required by the
+# stackhpc.os-flavors role.
+p3_flavors:
+  - "{{ p3_flavor_baremetal_magnum_0 }}"
+
+# Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
+# compute nodes in the ALaSKA system, and provides an ephemeral disk partition
+# for use by container storage.
+p3_flavor_baremetal_magnum_0:
+  name: "baremetal-magnum-0"
+  ram: 131072
+  disk: 271
+  vcpus: 64
+  ephemeral: 100

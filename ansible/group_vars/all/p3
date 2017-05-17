@@ -9,3 +9,21 @@ p3_venv: "{{ ansible_env.PWD }}/p3-config-venv"
 # List of OpenStack projects. Format is as required by the stackhpc.os-projects
 # role.
 p3_projects: []
+
+###############################################################################
+# Configuration of networks, subnets and routers for P-cubed.
+
+# List of networks in the p3 project. Format is as required by the
+# stackhpc.os-networks role.
+p3_networks: []
+
+# List of routers in the p3 project. Format is as required by the
+# stackhpc.os-networks role.
+p3_routers: []
+
+###############################################################################
+# Configuration of nova flavors for P-cubed.
+
+# List of nova flavors in the p3 project. Format is as required by the
+# stackhpc.os-flavors role.
+p3_flavors: []

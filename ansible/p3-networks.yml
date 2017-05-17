@@ -1,0 +1,10 @@
+---
+- name: Ensure Performance Prototype Platform (P-cubed) OpenStack networks exist
+  hosts: localhost
+  roles:
+    - role: stackhpc.os-networks
+      os_networks_venv: "{{ p3_venv }}"
+      os_networks_auth_type: "{{ openstack_auth_type }}"
+      os_networks_auth: "{{ openstack_auth }}"
+      os_networks: "{{ p3_networks }}"
+      os_networks_routers: "{{ p3_routers }}"
