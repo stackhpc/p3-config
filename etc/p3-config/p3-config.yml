@@ -152,7 +152,7 @@ p3_flavor_compute_B:
 p3_flavor_storage_A:
   name: "storage-A"
   ram: 131072
-  disk: 577
+  disk: 557
   vcpus: 48
 
 # ALaSKA SSD-based storage nodes.
