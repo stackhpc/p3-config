@@ -125,13 +125,45 @@ p3_router:
 # List of nova flavors in the p3 project. Format is as required by the
 # stackhpc.os-flavors role.
 p3_flavors:
-  - "{{ p3_flavor_baremetal_magnum_0 }}"
+  - "{{ p3_flavor_compute_A }}"
+  - "{{ p3_flavor_compute_B }}"
+  - "{{ p3_flavor_storage_A }}"
+  - "{{ p3_flavor_storage_B }}"
+  - "{{ p3_flavor_compute_A_magnum }}"
+
+# ALaSKA standard compute node.
+p3_flavor_compute_A:
+  name: "compute-A"
+  ram: 131072
+  disk: 371
+  vcpus: 64
+
+# ALaSKA high memory compute node.
+p3_flavor_compute_B:
+  name: "compute-B"
+  ram: 524288
+  disk: 371
+  vcpus: 64
+
+# ALaSKA disk & NVMe based storage nodes.
+p3_flavor_storage_A:
+  name: "storage-A"
+  ram: 131072
+  disk: 577
+  vcpus: 48
+
+# ALaSKA SSD-based storage nodes.
+p3_flavor_storage_B:
+  name: "storage-B"
+  ram: 131072
+  disk: 17877
+  vcpus: 48
 
 # Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
-# compute nodes in the ALaSKA system, and provides an ephemeral disk partition
-# for use by container storage.
-p3_flavor_baremetal_magnum_0:
-  name: "baremetal-magnum-0"
+# ALaSKA standard compute nodes, and provides an ephemeral disk partition for
+# use by container storage.
+p3_flavor_compute_A_magnum:
+  name: "compute-A-magnum"
   ram: 131072
   disk: 271
   vcpus: 64
