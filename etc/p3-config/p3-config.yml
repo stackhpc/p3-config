@@ -25,6 +25,9 @@ p3_project:
 # List of users in the p3 project. Format is as required by the
 # stackhpc.os-projects role.
 p3_users:
+  - name: alasdair
+    password: alasdair
+    roles: "{{ p3_user_roles }}"
   - name: ben
     password: ben
     roles: "{{ p3_user_roles }}"
