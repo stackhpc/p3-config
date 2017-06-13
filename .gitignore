@@ -4,6 +4,8 @@
 ansible/*.retry
 
 # Ansible roles installed from Galaxy.
+ansible/roles/stackhpc.os-flavors/
+ansible/roles/stackhpc.os-networks/
 ansible/roles/stackhpc.os-openstackclient/
 ansible/roles/stackhpc.os-projects/
 ansible/roles/stackhpc.os-shade/
