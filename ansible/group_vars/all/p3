@@ -27,3 +27,10 @@ p3_routers: []
 # List of nova flavors in the p3 project. Format is as required by the
 # stackhpc.os-flavors role.
 p3_flavors: []
+
+###############################################################################
+# Configuration of glance images for P-cubed.
+
+# List of glance images in the p3 project. Format is as required by the
+# stackhpc.os-images role.
+p3_images: []

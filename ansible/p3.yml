@@ -3,3 +3,4 @@
 - include: p3-project.yml
 - include: p3-networks.yml
 - include: p3-flavors.yml
+- include: p3-images.yml
