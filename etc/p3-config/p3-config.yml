@@ -215,11 +215,12 @@ p3_image_centos:
     - "centos7"
     - "epel"
     - "selinux-permissive"
-    #- "alaska-extras"
+    - "alaska-extras"
     - "dhcp-all-interfaces"
   env:
-    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
@@ -233,10 +234,11 @@ p3_image_fedora:
   elements:
     - "fedora"
     - "selinux-permissive"
-    #- "alaska-extras"
+    - "alaska-extras"
   env:
-    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
@@ -246,14 +248,15 @@ p3_image_openhpc:
     - "epel"
     - "openhpc"
     - "selinux-permissive"
-    #- "alaska-extras"
+    - "alaska-extras"
     - "dhcp-all-interfaces"
   env:
     DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
     DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
     DIB_OPENHPC_DELETE_REPO: "n"
-    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
@@ -263,14 +266,15 @@ p3_image_mlnx_ofed:
     - "epel"
     - "mlnx-ofed"
     - "selinux-permissive"
-    #- "alaska-extras"
+    - "alaska-extras"
     - "dhcp-all-interfaces"
   env:
     DIB_MLNX_OFED_VERSION: "4.0-2"
     DIB_MLNX_OFED_REPO: "http://127.0.0.1/repo/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64"
     DIB_MLNX_OFED_DELETE_REPO: "y"
-    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
 
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
