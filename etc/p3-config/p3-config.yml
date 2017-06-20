@@ -284,5 +284,6 @@ p3_image_git_elements:
     local: "{{ p3_image_stackhpc_elements }}"
 
 # Path to include
-p3_image_elements: "{{ p3_image_stackhpc_elements }}/elements"
+p3_image_elements: 
+  - "{{ p3_image_stackhpc_elements }}/elements"
 
