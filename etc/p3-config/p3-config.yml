@@ -355,3 +355,43 @@ p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras/
 
 # URL of the Mellanox OFED repo.
 p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64' }}"
+
+###############################################################################
+# Configuration of magnum cluster templates.
+
+# List of magnum cluster templates.
+p3_container_clusters_templates:
+  - "{{ p3_container_clusters_template_swarm_fedora_25 }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_25 }}"
+
+# Docker swarm magnum cluster template.
+p3_container_clusters_template_swarm_fedora_25:
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_internal_name }}"
+  fixed_subnet: "{{ p3_network_internal_name }}"
+  master_flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  image: "swarm-ce-fedora-25"
+  name: "swarm-fedora-25"
+  coe: "swarm"
+  network_driver: "docker"
+  docker_storage_driver: "devicemapper"
+  # docker_volume_size must be > 3 to trigger creation of a volume.
+  docker_volume_size: 3
+  server_type: "bm"
+
+# Kubernetes magnum cluster template.
+p3_container_clusters_template_k8s_fedora_25:
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_internal_name }}"
+  fixed_subnet: "{{ p3_network_internal_name }}"
+  master_flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  image: "k8s-fedora-25"
+  name: "k8s-fedora-25"
+  coe: "kubernetes"
+  network_driver: "flannel"
+  docker_storage_driver: "devicemapper"
+  # docker_volume_size must be > 3 to trigger creation of a volume.
+  docker_volume_size: 3
+  server_type: "bm"

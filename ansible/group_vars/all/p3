@@ -41,3 +41,8 @@ p3_image_elements: []
 # List of diskimage-builder element git repos to pull
 p3_image_git_elements: []
 
+###############################################################################
+# Configuration of magnum cluster templates.
+
+# List of magnum cluster templates.
+p3_container_clusters_templates: []
