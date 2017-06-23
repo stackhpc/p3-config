@@ -99,6 +99,7 @@ p3_network_ilab_name: "ilab"
 # P3 i-lab network.
 p3_network_ilab:
   name: "{{ p3_network_ilab_name }}"
+  external: True
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
   provider_segmentation_id: 60
@@ -111,9 +112,9 @@ p3_network_ilab:
 p3_subnet_ilab:
   name: "{{ p3_network_ilab_name }}"
   cidr: "10.60.253.0/16"
-  gateway_ip: "10.60.210.1"
-  allocation_pool_start: "10.60.253.10"
-  allocation_pool_end: "10.60.253.127"
+  gateway_ip: "10.60.210.128"
+  allocation_pool_start: "10.60.253.135"
+  allocation_pool_end: "10.60.253.191"
 
 # P3 internal network name.
 p3_network_internal_name: "p3-internal"
@@ -155,10 +156,6 @@ p3_router:
 # stackhpc.os-flavors role.
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
-  - "{{ p3_flavor_compute_B }}"
-  - "{{ p3_flavor_compute_GPU }}"
-  - "{{ p3_flavor_storage_A }}"
-  - "{{ p3_flavor_storage_B }}"
   - "{{ p3_flavor_compute_A_magnum }}"
 
 # ALaSKA standard compute node.
@@ -167,34 +164,6 @@ p3_flavor_compute_A:
   ram: 131072
   disk: 371
   vcpus: 64
-
-# ALaSKA high memory compute node.
-p3_flavor_compute_B:
-  name: "compute-B"
-  ram: 524288
-  disk: 371
-  vcpus: 64
-
-# ALaSKA GPU compute node.
-p3_flavor_compute_GPU:
-  name: "compute-GPU"
-  ram: 131072
-  disk: 744
-  vcpus: 64
-
-# ALaSKA disk & NVMe based storage nodes.
-p3_flavor_storage_A:
-  name: "storage-A"
-  ram: 131072
-  disk: 557
-  vcpus: 48
-
-# ALaSKA SSD-based storage nodes.
-p3_flavor_storage_B:
-  name: "storage-B"
-  ram: 131072
-  disk: 17877
-  vcpus: 48
 
 # Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
 # ALaSKA standard compute nodes, and provides an ephemeral disk partition for
