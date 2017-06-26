@@ -17,7 +17,14 @@ Preparation
 
 Ensure that Ansible is installed, either via the system package manager or pip.
 If required, use a virtualenv to avoid interference with the system python
-packages.
+packages. For example:
+
+.. code-block::
+
+   $ virtualenv venv
+   $ source venv/bin/activate
+   $ pip install -U pip
+   $ pip install -r requirements.txt
 
 Install Ansible role dependencies from Ansible Galaxy:
 

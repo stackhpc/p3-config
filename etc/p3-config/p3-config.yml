@@ -156,6 +156,7 @@ p3_router:
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
   - "{{ p3_flavor_compute_B }}"
+  - "{{ p3_flavor_compute_GPU }}"
   - "{{ p3_flavor_storage_A }}"
   - "{{ p3_flavor_storage_B }}"
   - "{{ p3_flavor_compute_A_magnum }}"
@@ -172,6 +173,13 @@ p3_flavor_compute_B:
   name: "compute-B"
   ram: 524288
   disk: 371
+  vcpus: 64
+
+# ALaSKA GPU compute node.
+p3_flavor_compute_GPU:
+  name: "compute-GPU"
+  ram: 131072
+  disk: 744
   vcpus: 64
 
 # ALaSKA disk & NVMe based storage nodes.
