@@ -217,8 +217,9 @@ p3_image_centos:
     - "selinux-permissive"
     - "alaska-extras"
     - "dhcp-all-interfaces"
+    - "vm"
   env:
-    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
 
@@ -227,6 +228,7 @@ p3_image_ubuntu:
   name: "Ubuntu16"
   elements:
     - "ubuntu"
+    - "vm"
 
 # Latest Fedora Core image
 p3_image_fedora:
@@ -235,8 +237,9 @@ p3_image_fedora:
     - "fedora"
     - "selinux-permissive"
     - "alaska-extras"
+    - "vm"
   env:
-    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
 
@@ -250,11 +253,12 @@ p3_image_openhpc:
     - "selinux-permissive"
     - "alaska-extras"
     - "dhcp-all-interfaces"
+    - "vm"
   env:
     DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
     DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
     DIB_OPENHPC_DELETE_REPO: "n"
-    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
 
@@ -268,11 +272,12 @@ p3_image_mlnx_ofed:
     - "selinux-permissive"
     - "alaska-extras"
     - "dhcp-all-interfaces"
+    - "vm"
   env:
     DIB_MLNX_OFED_VERSION: "4.0-2"
-    DIB_MLNX_OFED_REPO: "http://127.0.0.1/repo/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64"
+    DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
     DIB_MLNX_OFED_DELETE_REPO: "y"
-    DIB_ALASKA_REPO: "http://127.0.0.1/repo/ALaSKA-Extras/RPMS"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
 
@@ -287,3 +292,11 @@ p3_image_git_elements:
 p3_image_elements: 
   - "{{ p3_image_stackhpc_elements }}/elements"
 
+# URL of the ALaSKA repo server.
+p3_repo_server_url_base: "http://10.41.253.100:4120"
+
+# URL of the ALaSKA-Extras repo.
+p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras/RPMS' }}"
+
+# URL of the Mellanox OFED repo.
+p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64' }}"
