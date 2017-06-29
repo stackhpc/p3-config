@@ -1,0 +1,12 @@
+---
+- name: Generate Performance Prototype Platform (P-cubed) software images
+  hosts: localhost
+  roles:
+    - role: stackhpc.os-images
+      os_images_venv: "{{ p3_venv }}"
+      os_images_cache: "{{ ansible_env.PWD }}/p3-config-image-cache"
+      os_images_auth_type: "{{ openstack_auth_type }}"
+      os_images_auth: "{{ openstack_auth }}"
+      os_images_list: "{{ p3_images }}"
+      os_images_elements: "{{ p3_image_elements }}"
+      os_images_git_elements: "{{ p3_image_git_elements }}"

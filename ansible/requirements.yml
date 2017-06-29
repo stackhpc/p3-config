@@ -2,3 +2,4 @@
 - src: stackhpc.os-flavors
 - src: stackhpc.os-networks
 - src: stackhpc.os-projects
+- src: stackhpc.os-images

@@ -208,3 +208,109 @@ p3_flavor_compute_A_magnum:
   disk: 271
   vcpus: 64
   ephemeral: 100
+
+###############################################################################
+# Software images for P-cubed
+
+p3_images:
+  - "{{ p3_image_centos }}"
+  - "{{ p3_image_ubuntu }}"
+  - "{{ p3_image_fedora }}"
+  - "{{ p3_image_openhpc }}"
+  - "{{ p3_image_mlnx_ofed }}"
+
+# Latest CentOS image
+p3_image_centos:
+  name: "CentOS7"
+  elements:
+    - "centos7"
+    - "epel"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+
+# Latest Ubuntu image
+p3_image_ubuntu:
+  name: "Ubuntu16"
+  elements:
+    - "ubuntu"
+    - "vm"
+
+# Latest Fedora Core image
+p3_image_fedora:
+  name: "FedoraCore"
+  elements:
+    - "fedora"
+    - "dracut-regenerate"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "alaska-extras"
+    - "vm"
+  env:
+    DIB_RELEASE: 25
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+
+# Build of OpenHPC on CentOS
+p3_image_openhpc:
+  name: "CentOS7-OpenHPC"
+  elements:
+    - "centos7"
+    - "epel"
+    - "openhpc"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
+    DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
+    DIB_OPENHPC_DELETE_REPO: "n"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+
+# Build of Mellanox OFED on CentOS
+p3_image_mlnx_ofed:
+  name: "CentOS7-OFED4"
+  elements:
+    - "centos7"
+    - "epel"
+    - "mlnx-ofed"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_MLNX_OFED_VERSION: "4.0-2"
+    DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
+    DIB_MLNX_OFED_DELETE_REPO: "y"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+
+# This creates a git checkout in the local user's home directory
+p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
+
+p3_image_git_elements:
+  - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
+    local: "{{ p3_image_stackhpc_elements }}"
+
+# Path to include
+p3_image_elements: 
+  - "{{ p3_image_stackhpc_elements }}/elements"
+
+# URL of the ALaSKA repo server.
+p3_repo_server_url_base: "http://10.41.253.100:4120"
+
+# URL of the ALaSKA-Extras repo.
+p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras/RPMS' }}"
+
+# URL of the Mellanox OFED repo.
+p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64' }}"
