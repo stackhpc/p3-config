@@ -243,10 +243,13 @@ p3_image_fedora:
   name: "FedoraCore"
   elements:
     - "fedora"
+    - "dracut-regenerate"
     - "selinux-permissive"
+    - "dhcp-all-interfaces"
     - "alaska-extras"
     - "vm"
   env:
+    DIB_RELEASE: 25
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
