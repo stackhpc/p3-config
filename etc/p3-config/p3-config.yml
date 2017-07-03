@@ -28,6 +28,9 @@ p3_users:
   - name: alasdair
     password: alasdair
     roles: "{{ p3_user_roles }}"
+  - name: arjen
+    password: arjen
+    roles: "{{ p3_user_roles }}"
   - name: ben
     password: ben
     roles: "{{ p3_user_roles }}"
