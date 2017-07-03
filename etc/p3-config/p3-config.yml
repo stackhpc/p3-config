@@ -302,7 +302,7 @@ p3_image_mlnx_ofed:
 
 # Build of Fedora 25 for magnum & kubernetes.
 p3_image_magnum_k8s_fedora_25:
-  name: "k8s-fedora-25-test"
+  name: "k8s-fedora-25"
   elements:
     - "baremetal"
     - "dhcp-all-interfaces"
@@ -315,9 +315,10 @@ p3_image_magnum_k8s_fedora_25:
   env:
     DIB_RELEASE: 25
 
-# Build of Fedora 25 for magnum & docker swarm (mode) 17.05.
+# Build of Fedora 25 for magnum & docker swarm (mode) 17.05 Community Edition
+# (CE).
 p3_image_magnum_swarm_fedora_25:
-  name: "swarm-fedora-25-test"
+  name: "swarm-ce-fedora-25"
   elements:
     - "baremetal"
     - "dhcp-all-interfaces"
