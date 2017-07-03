@@ -27,3 +27,22 @@ p3_routers: []
 # List of nova flavors in the p3 project. Format is as required by the
 # stackhpc.os-flavors role.
 p3_flavors: []
+
+###############################################################################
+# Configuration of glance images for P-cubed.
+
+# List of glance images in the p3 project. Format is as required by the
+# stackhpc.os-images role.
+p3_images: []
+
+# List of additional diskimage-builder elements to incorporate on the path
+p3_image_elements: []
+
+# List of diskimage-builder element git repos to pull
+p3_image_git_elements: []
+
+###############################################################################
+# Configuration of magnum cluster templates.
+
+# List of magnum cluster templates.
+p3_container_clusters_templates: []

@@ -1,4 +1,6 @@
 ---
+- src: stackhpc.os-container-clusters
 - src: stackhpc.os-flavors
 - src: stackhpc.os-networks
 - src: stackhpc.os-projects
+- src: stackhpc.os-images

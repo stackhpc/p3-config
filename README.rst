@@ -44,7 +44,10 @@ To configure OpenStack infrastructure for P-cubed:
 
 .. code-block::
 
-   $ ansible-playbook \
-       -i ansible/inventory \
-       -e @etc/p3-config/p3-config.yml \
-       ansible/p3.yml
+   $ tools/p3-config
+
+To run a specific playbook:
+
+.. code-block::
+
+   $ tools/p3-config -p </path/to/playbook>

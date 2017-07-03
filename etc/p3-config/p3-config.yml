@@ -31,6 +31,9 @@ p3_users:
   - name: ben
     password: ben
     roles: "{{ p3_user_roles }}"
+  - name: brian
+    password: brian
+    roles: "{{ p3_user_roles }}"
   - name: chris
     password: chris
     roles: "{{ p3_user_roles }}"
@@ -55,6 +58,9 @@ p3_users:
   - name: stig
     password: stig
     roles: "{{ p3_admin_roles }}"
+  - name: verity
+    password: verity
+    roles: "{{ p3_user_roles }}"
   - name: vlad
     password: vlad
     roles: "{{ p3_user_roles }}"
@@ -174,3 +180,212 @@ p3_flavor_compute_A_magnum:
   disk: 271
   vcpus: 64
   ephemeral: 100
+
+###############################################################################
+# Software images for P-cubed
+
+p3_images:
+  - "{{ p3_image_centos }}"
+  - "{{ p3_image_ubuntu }}"
+  - "{{ p3_image_fedora }}"
+  - "{{ p3_image_openhpc }}"
+  - "{{ p3_image_mlnx_ofed }}"
+  - "{{ p3_image_magnum_k8s_fedora_25 }}"
+  - "{{ p3_image_magnum_swarm_fedora_25 }}"
+
+# Latest CentOS image
+p3_image_centos:
+  name: "CentOS7"
+  elements:
+    - "centos7"
+    - "epel"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+  properties:
+    os_distro: "centos"
+    os_version: 7
+
+# Latest Ubuntu image
+p3_image_ubuntu:
+  name: "Ubuntu16"
+  elements:
+    - "ubuntu"
+    - "vm"
+  properties:
+    os_distro: "ubuntu"
+    os_version: 16.04
+
+# Latest Fedora Core image
+p3_image_fedora:
+  name: "FedoraCore"
+  elements:
+    - "fedora"
+    - "dracut-regenerate"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "alaska-extras"
+    - "vm"
+  env:
+    DIB_RELEASE: 25
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+  properties:
+    os_distro: "fedora"
+    os_version: 25
+
+# Build of OpenHPC on CentOS
+p3_image_openhpc:
+  name: "CentOS7-OpenHPC"
+  elements:
+    - "centos7"
+    - "epel"
+    - "openhpc"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
+    DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
+    DIB_OPENHPC_DELETE_REPO: "n"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+  properties:
+    os_distro: "centos"
+    os_version: 7
+
+# Build of Mellanox OFED on CentOS
+p3_image_mlnx_ofed:
+  name: "CentOS7-OFED4"
+  elements:
+    - "centos7"
+    - "epel"
+    - "mlnx-ofed"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_MLNX_OFED_VERSION: "4.0-2"
+    DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
+    DIB_MLNX_OFED_DELETE_REPO: "y"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+  properties:
+    os_distro: "centos"
+    os_version: 7
+
+# Build of Fedora 25 for magnum & kubernetes.
+p3_image_magnum_k8s_fedora_25:
+  name: "k8s-fedora-25"
+  elements:
+    - "baremetal"
+    - "dhcp-all-interfaces"
+    - "dracut-regenerate"
+    - "enable-serial-console"
+    - "fedora"
+    - "grub2"
+    - "kubernetes"
+    - "selinux-permissive"
+  env:
+    DIB_RELEASE: 25
+  properties:
+    os_distro: "fedora"
+    os_version: 25
+
+# Build of Fedora 25 for magnum & docker swarm (mode) 17.05 Community Edition
+# (CE).
+p3_image_magnum_swarm_fedora_25:
+  name: "swarm-ce-fedora-25"
+  elements:
+    - "baremetal"
+    - "dhcp-all-interfaces"
+    - "docker-ce"
+    - "dracut-regenerate"
+    - "enable-serial-console"
+    - "fedora"
+    - "grub2"
+    - "magnum-swarm"
+    - "selinux-permissive"
+  env:
+    DIB_RELEASE: 25
+    # Enable the [cutting] edge repository.
+    DIB_DOCKER_ENABLED_REPOS: "docker-ce-edge"
+  properties:
+    os_distro: "fedora"
+    os_version: 25
+
+# This creates a git checkout in the local user's home directory
+p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
+
+# This creates a git checkout in the local user's home directory
+p3_image_magnum_elements: "{{ ansible_env.PWD }}/magnum"
+
+p3_image_git_elements:
+  - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
+    local: "{{ p3_image_stackhpc_elements }}"
+  - repo: "https://github.com/stackhpc/magnum.git"
+    local: "{{ p3_image_magnum_elements }}"
+
+# Path to include
+p3_image_elements: 
+  - "{{ p3_image_stackhpc_elements }}/elements"
+  - "{{ p3_image_magnum_elements }}/magnum/drivers/k8s_fedora_ironic_v1/image"
+
+# URL of the ALaSKA repo server.
+p3_repo_server_url_base: "http://10.41.253.100:4120"
+
+# URL of the ALaSKA-Extras repo.
+p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras/RPMS' }}"
+
+# URL of the Mellanox OFED repo.
+p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64' }}"
+
+###############################################################################
+# Configuration of magnum cluster templates.
+
+# List of magnum cluster templates.
+p3_container_clusters_templates:
+  - "{{ p3_container_clusters_template_swarm_fedora_25 }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_25 }}"
+
+# Docker swarm magnum cluster template.
+p3_container_clusters_template_swarm_fedora_25:
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_internal_name }}"
+  fixed_subnet: "{{ p3_network_internal_name }}"
+  master_flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  image: "swarm-ce-fedora-25"
+  name: "swarm-fedora-25"
+  coe: "swarm"
+  network_driver: "docker"
+  docker_storage_driver: "devicemapper"
+  # docker_volume_size must be > 3 to trigger creation of a volume.
+  docker_volume_size: 3
+  server_type: "bm"
+
+# Kubernetes magnum cluster template.
+p3_container_clusters_template_k8s_fedora_25:
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_internal_name }}"
+  fixed_subnet: "{{ p3_network_internal_name }}"
+  master_flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  flavor: "{{ p3_flavor_compute_A_magnum.name }}"
+  image: "k8s-fedora-25"
+  name: "k8s-fedora-25"
+  coe: "kubernetes"
+  network_driver: "flannel"
+  docker_storage_driver: "devicemapper"
+  # docker_volume_size must be > 3 to trigger creation of a volume.
+  docker_volume_size: 3
+  server_type: "bm"
