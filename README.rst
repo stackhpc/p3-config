@@ -51,3 +51,10 @@ To run a specific playbook:
 .. code-block::
 
    $ tools/p3-config -p </path/to/playbook>
+
+To specify additional arguments to ``ansible-playbook``, separate them with a
+double hyphen (``--``):
+
+.. code-block::
+
+   $ tools/p3-config -- <arguments>

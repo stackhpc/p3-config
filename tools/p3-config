@@ -7,18 +7,14 @@ cd ${P3_CONFIG_PATH}
 
 PLAYBOOK=ansible/p3.yml
 
-while getopts ":p:-" opt; do
+while getopts ":p:" opt; do
   case $opt in
     p)
       PLAYBOOK=${OPTARG}
       ;;
-    -)
-      shift
-      break
-      ;;
     \?)
       echo "Invalid option: -$opt"
-      echo "Usage: ${0} [-p <playbook>] [<other arguments to ansible-playbook>]"
+      echo "Usage: ${0} [-p <playbook>] [-- <other arguments to ansible-playbook>]"
       exit 1
       ;;
   esac
@@ -28,10 +24,14 @@ while getopts ":p:-" opt; do
   shift
 done
 
+if [[ $1 == '--' ]]; then
+    shift
+fi
+
 echo "Running playbook $PLAYBOOK"
 
 exec ansible-playbook \
+  ${PLAYBOOK} \
   -i ansible/inventory \
   -e @etc/p3-config/p3-config.yml \
-  ${PLAYBOOK} \
   $@
