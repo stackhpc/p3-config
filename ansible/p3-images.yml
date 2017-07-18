@@ -1,6 +1,8 @@
 ---
 - name: Generate Performance Prototype Platform (P-cubed) software images
   hosts: localhost
+  tags:
+    - images
   roles:
     - role: stackhpc.os-images
       os_images_venv: "{{ p3_venv }}"
