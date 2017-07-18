@@ -55,9 +55,6 @@ p3_users:
   - name: paul
     password: paul
     roles: "{{ p3_admin_roles }}"
-  - name: steve
-    password: steve
-    roles: "{{ p3_admin_roles }}"
   - name: stig
     password: stig
     roles: "{{ p3_admin_roles }}"
