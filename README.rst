@@ -58,3 +58,10 @@ double hyphen (``--``):
 .. code-block::
 
    $ tools/p3-config -- <arguments>
+
+For example, a vault secret stored as a file can be passed as an extra
+configuration parameter:
+
+.. code-block::
+
+   $ tools/p3-config -- --vault-password-file config-secret.vault 
