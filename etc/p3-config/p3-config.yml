@@ -118,7 +118,7 @@ p3_network_ilab:
 p3_subnet_ilab:
   name: "{{ p3_network_ilab_name }}"
   cidr: "10.60.253.0/16"
-  gateway_ip: "10.60.210.128"
+  gateway_ip: "10.60.210.1"
   allocation_pool_start: "10.60.253.135"
   allocation_pool_end: "10.60.253.191"
 
