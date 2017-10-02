@@ -141,7 +141,7 @@ p3_users:
           30363431336365303231633165313565623361373766333264343432326566653965316439366334
           3137616331653461340a343332343634646638363630333433343639373463303138383866643436
           3162
-    roles: "{{ p3_user_roles }}"
+    roles: "{{ p3_admin_roles }}"
   - name: markus
     password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -223,6 +223,7 @@ p3_admin_roles:
 # List of roles to apply to admin users in the p3 project.
 p3_user_roles:
   - heat_stack_owner
+  - observer
 
 # List of keypairs to register in the p3 project.
 p3_keypairs: []
