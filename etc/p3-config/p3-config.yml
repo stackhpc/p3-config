@@ -393,7 +393,7 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: 7
+    os_version: "7.4"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
@@ -403,7 +403,7 @@ p3_image_ubuntu:
     - "vm"
   properties:
     os_distro: "ubuntu"
-    os_version: 16.04
+    os_version: "16.04"
 
 # Latest Ubuntu image with CUDA
 p3_image_ubuntu_cuda:
@@ -416,7 +416,7 @@ p3_image_ubuntu_cuda:
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "ubuntu"
-    os_version: 16.04
+    os_version: "16.04"
 
 # Latest Fedora Core image
 p3_image_fedora:
@@ -435,7 +435,7 @@ p3_image_fedora:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
-    os_version: 25
+    os_version: "25"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
@@ -457,7 +457,7 @@ p3_image_openhpc:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: 7
+    os_version: "7.4"
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
@@ -477,7 +477,7 @@ p3_image_centos_cuda:
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "centos"
-    os_version: 7
+    os_version: "7.4"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
@@ -499,7 +499,7 @@ p3_image_mlnx_ofed:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: 7.4
+    os_version: "7.4"
 
 # Build of Fedora 25 for magnum & kubernetes.
 p3_image_magnum_k8s_fedora_25:
@@ -517,7 +517,7 @@ p3_image_magnum_k8s_fedora_25:
     DIB_RELEASE: 25
   properties:
     os_distro: "fedora"
-    os_version: 25
+    os_version: "25"
 
 # Build of Fedora 25 for magnum & docker swarm (mode) 17.05 Community Edition
 # (CE).
@@ -539,7 +539,7 @@ p3_image_magnum_swarm_fedora_25:
     DIB_DOCKER_ENABLED_REPOS: "docker-ce-edge"
   properties:
     os_distro: "fedora"
-    os_version: 25
+    os_version: "25"
 
 # Build of Anaconda on CentOS
 p3_image_anaconda:
