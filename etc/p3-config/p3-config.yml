@@ -371,6 +371,8 @@ p3_images:
   - "{{ p3_image_ubuntu }}"
   - "{{ p3_image_fedora }}"
   - "{{ p3_image_openhpc }}"
+  - "{{ p3_image_centos_cuda }}"
+  - "{{ p3_image_ubuntu_cuda }}"
   - "{{ p3_image_mlnx_ofed }}"
   - "{{ p3_image_magnum_k8s_fedora_25 }}"
   - "{{ p3_image_magnum_swarm_fedora_25 }}"
@@ -392,7 +394,7 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: 7
+    os_version: "7.4"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
@@ -402,7 +404,20 @@ p3_image_ubuntu:
     - "vm"
   properties:
     os_distro: "ubuntu"
-    os_version: 16.04
+    os_version: "16.04"
+
+# Latest Ubuntu image with CUDA
+p3_image_ubuntu_cuda:
+  name: "Ubuntu16-CUDA"
+  elements:
+    - "ubuntu"
+    - "nvidia-cuda"
+    - "vm"
+  env:
+    DIB_NVIDIA_CUDA_DELETE_REPO: "n"
+  properties:
+    os_distro: "ubuntu"
+    os_version: "16.04"
 
 # Latest Fedora Core image
 p3_image_fedora:
@@ -421,11 +436,11 @@ p3_image_fedora:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
-    os_version: 25
+    os_version: "25"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
-  name: "CentOS7-OpenHPC"
+  name: "CentOS7.4-OpenHPC"
   elements:
     - "centos7"
     - "epel"
@@ -439,15 +454,35 @@ p3_image_openhpc:
     DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
     DIB_OPENHPC_DELETE_REPO: "n"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: 7
+    os_version: "7.4"
+
+# Build of nVidia CUDA on CentOS
+p3_image_centos_cuda:
+  name: "CentOS7.4-CUDA"
+  elements:
+    - "centos7"
+    - "epel"
+    - "nvidia-cuda"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
+    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_NVIDIA_CUDA_DELETE_REPO: "n"
+  properties:
+    os_distro: "centos"
+    os_version: "7.4"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
-  name: "CentOS7-OFED4"
+  name: "CentOS7.4-OFED4.1"
   elements:
     - "centos7"
     - "epel"
@@ -457,7 +492,7 @@ p3_image_mlnx_ofed:
     - "dhcp-all-interfaces"
     - "vm"
   env:
-    DIB_MLNX_OFED_VERSION: "4.0-2"
+    DIB_MLNX_OFED_VERSION: "4.1-1"
     DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
     DIB_MLNX_OFED_DELETE_REPO: "y"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
@@ -465,7 +500,7 @@ p3_image_mlnx_ofed:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: 7
+    os_version: "7.4"
 
 # Build of Fedora 25 for magnum & kubernetes.
 p3_image_magnum_k8s_fedora_25:
@@ -483,7 +518,7 @@ p3_image_magnum_k8s_fedora_25:
     DIB_RELEASE: 25
   properties:
     os_distro: "fedora"
-    os_version: 25
+    os_version: "25"
 
 # Build of Fedora 25 for magnum & docker swarm (mode) 17.05 Community Edition
 # (CE).
@@ -505,7 +540,7 @@ p3_image_magnum_swarm_fedora_25:
     DIB_DOCKER_ENABLED_REPOS: "docker-ce-edge"
   properties:
     os_distro: "fedora"
-    os_version: 25
+    os_version: "25"
 
 # Build of Anaconda on CentOS
 p3_image_anaconda:
@@ -545,10 +580,10 @@ p3_image_elements:
 p3_repo_server_url_base: "http://10.41.253.100:4120"
 
 # URL of the ALaSKA-Extras repo.
-p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras/RPMS' }}"
+p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras' }}"
 
 # URL of the Mellanox OFED repo.
-p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.0-2.0.0.1-rhel7.3-x86_64' }}"
+p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.1-1.0.2.0-rhel7.4-x86_64' }}"
 
 ###############################################################################
 # Configuration of magnum cluster templates.
