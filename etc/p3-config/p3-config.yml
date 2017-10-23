@@ -271,6 +271,9 @@ p3_subnet_ilab:
   gateway_ip: "10.60.210.1"
   allocation_pool_start: "10.60.253.10"
   allocation_pool_end: "10.60.253.127"
+  host_routes:
+    - destination: "10.4.0.0/16"
+      nexthop: "10.60.253.255"
 
 # P3 internal network name.
 p3_network_internal_name: "p3-internal"
