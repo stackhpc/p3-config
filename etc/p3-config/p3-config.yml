@@ -219,11 +219,13 @@ p3_users:
 p3_admin_roles:
   - admin
   - heat_stack_owner
+  - monasca-user
 
-# List of roles to apply to admin users in the p3 project.
+# List of roles to apply to regular users in the p3 project.
 p3_user_roles:
   - heat_stack_owner
   - observer
+  - monasca-read-only-user
 
 # List of keypairs to register in the p3 project.
 p3_keypairs: []
