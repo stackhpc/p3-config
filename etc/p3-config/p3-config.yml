@@ -330,7 +330,7 @@ p3_flavor_compute_A:
   disk: 371
   vcpus: 64
   extra_specs:
-    resources:CUSTOM_COMPUTE_A: 1
+    "resources:CUSTOM_COMPUTE_A": 1
 
 # ALaSKA high memory compute node.
 p3_flavor_compute_B:
@@ -339,7 +339,7 @@ p3_flavor_compute_B:
   disk: 371
   vcpus: 64
   extra_specs:
-    resources:CUSTOM_COMPUTE_B: 1
+    "resources:CUSTOM_COMPUTE_B": 1
 
 # ALaSKA GPU compute node.
 p3_flavor_compute_GPU:
@@ -348,7 +348,7 @@ p3_flavor_compute_GPU:
   disk: 744
   vcpus: 64
   extra_specs:
-    resources:CUSTOM_COMPUTE_GPU: 1
+    "resources:CUSTOM_COMPUTE_GPU": 1
 
 # ALaSKA disk & NVMe based storage nodes.
 p3_flavor_storage_A:
@@ -357,7 +357,7 @@ p3_flavor_storage_A:
   disk: 557
   vcpus: 48
   extra_specs:
-    resources:CUSTOM_STORAGE_A: 1
+    "resources:CUSTOM_STORAGE_A": 1
 
 # ALaSKA SSD-based storage nodes.
 p3_flavor_storage_B:
@@ -366,7 +366,7 @@ p3_flavor_storage_B:
   disk: 17877
   vcpus: 48
   extra_specs:
-    resources:CUSTOM_STORAGE_B: 1
+    "resources:CUSTOM_STORAGE_B": 1
 
 # Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
 # ALaSKA standard compute nodes, and provides an ephemeral disk partition for
@@ -378,7 +378,7 @@ p3_flavor_compute_A_magnum:
   vcpus: 64
   ephemeral: 100
   extra_specs:
-    resources:CUSTOM_COMPUTE_A: 1
+    "resources:CUSTOM_COMPUTE_A": 1
 
 ###############################################################################
 # Software images for P-cubed
