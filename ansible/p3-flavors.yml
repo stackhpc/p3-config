@@ -1,6 +1,8 @@
 ---
 - name: Ensure Performance Prototype Platform (P-cubed) OpenStack nova flavors exist
   hosts: localhost
+  tags:
+    - flavors
   roles:
     - role: stackhpc.os-flavors
       os_flavors_venv: "{{ p3_venv }}"
