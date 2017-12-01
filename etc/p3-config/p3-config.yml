@@ -251,6 +251,7 @@ p3_quotas:
 p3_networks:
   - "{{ p3_network_ilab }}"
   - "{{ p3_network_internal }}"
+  - "{{ p3_network_bdn }}"
 
 # P3 i-lab network name.
 p3_network_ilab_name: "ilab"
@@ -297,6 +298,26 @@ p3_subnet_internal:
   gateway_ip: "10.0.0.1"
   allocation_pool_start: "10.0.0.2"
   allocation_pool_end: "10.0.0.254"
+
+# P3 Bulk Data Network (BDN) network name.
+p3_network_bdn_name: "p3-bdn"
+
+# P3 Bulk Data Network (BDN) network.
+p3_network_bdn:
+  name: "{{ p3_network_bdn_name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet2"
+  shared: False
+  # Subnet configuration.
+  subnets:
+    - "{{ p3_subnet_bdn }}"
+
+# P3 Bulk Data Network (BDN) subnet.
+p3_subnet_bdn:
+  name: "{{ p3_network_bdn_name }}"
+  cidr: "10.1.0.0/24"
+  allocation_pool_start: "10.1.0.2"
+  allocation_pool_end: "10.1.0.254"
 
 # List of routers in the p3 project. Format is as required by the
 # stackhpc.os-networks role.
