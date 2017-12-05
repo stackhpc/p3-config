@@ -316,6 +316,7 @@ p3_network_bdn:
 p3_subnet_bdn:
   name: "{{ p3_network_bdn_name }}"
   cidr: "10.1.0.0/24"
+  gateway_ip: "10.1.0.1"
   allocation_pool_start: "10.1.0.2"
   allocation_pool_end: "10.1.0.254"
 
@@ -323,6 +324,7 @@ p3_subnet_bdn:
 # stackhpc.os-networks role.
 p3_routers:
   - "{{ p3_router }}"
+  - "{{ p3_bdn_router }}"
 
 # P3 router.
 p3_router:
@@ -330,6 +332,13 @@ p3_router:
   network: "{{ p3_network_ilab_name }}"
   interfaces:
     - "{{ p3_subnet_internal.name }}"
+
+# P3 Bulk Data Network (BDN) router.
+p3_bdn_router:
+  name: "{{ p3_network_bdn_name }}"
+  network: "{{ p3_network_ilab_name }}"
+  interfaces:
+    - "{{ p3_subnet_bdn.name }}"
 
 ###############################################################################
 # Configuration of nova flavors for P-cubed.
