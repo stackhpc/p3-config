@@ -1,6 +1,8 @@
 ---
 - name: Ensure Performance Prototype Platform (P-cubed) OpenStack projects exist
   hosts: localhost
+  tags:
+    - project
   roles:
     - role: stackhpc.os-projects
       os_projects_venv: "{{ p3_venv }}"

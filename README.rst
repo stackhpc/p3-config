@@ -51,3 +51,17 @@ To run a specific playbook:
 .. code-block::
 
    $ tools/p3-config -p </path/to/playbook>
+
+To specify additional arguments to ``ansible-playbook``, separate them with a
+double hyphen (``--``):
+
+.. code-block::
+
+   $ tools/p3-config -- <arguments>
+
+For example, a vault secret stored as a file can be passed as an extra
+configuration parameter:
+
+.. code-block::
+
+   $ tools/p3-config -- --vault-password-file config-secret.vault 

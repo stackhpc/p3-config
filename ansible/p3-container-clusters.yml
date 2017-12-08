@@ -1,6 +1,8 @@
 ---
 - name: Ensure Performance Prototype Platform (P-cubed) container clusters exist
   hosts: localhost
+  tags:
+    - container-clusters
   roles:
     - role: stackhpc.os-container-clusters
       os_container_clusters_venv: "{{ p3_venv }}"
