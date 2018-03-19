@@ -475,6 +475,7 @@ p3_image_openhpc:
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "systemd-modules-load"
   env:
     DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
     DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
@@ -482,6 +483,7 @@ p3_image_openhpc:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: "ib_ipoib"
   properties:
     os_distro: "centos"
     os_version: "7.4"
@@ -517,6 +519,7 @@ p3_image_mlnx_ofed:
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "systemd-modules-load"
   env:
     DIB_MLNX_OFED_VERSION: "4.1-1"
     DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
@@ -524,6 +527,7 @@ p3_image_mlnx_ofed:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: "ib_ipoib"
   properties:
     os_distro: "centos"
     os_version: "7.4"
