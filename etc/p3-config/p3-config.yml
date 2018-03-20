@@ -270,6 +270,7 @@ p3_networks:
   - "{{ p3_network_ilab }}"
   - "{{ p3_network_internal }}"
   - "{{ p3_network_bdn }}"
+  - "{{ p3_network_lln }}"
 
 # P3 i-lab network name.
 p3_network_ilab_name: "ilab"
@@ -338,6 +339,27 @@ p3_subnet_bdn:
   gateway_ip: "10.1.0.1"
   allocation_pool_start: "10.1.0.2"
   allocation_pool_end: "10.1.0.254"
+
+# P3 Low Latency Network (LLN) network name.
+p3_network_lln_name: "p3-lln"
+
+# P3 Low Latency Network (LLN) network.
+p3_network_lln:
+  name: "{{ p3_network_lln_name }}"
+  provider_network_type: "flat"
+  provider_physical_network: "physnet3"
+  shared: False
+  # Subnet configuration.
+  subnets:
+    - "{{ p3_subnet_lln }}"
+
+# P3 Low Latency Network (LLN) subnet.
+p3_subnet_lln:
+  name: "{{ p3_network_lln_name }}"
+  cidr: "10.2.0.0/24"
+  gateway_ip: "10.2.0.1"
+  allocation_pool_start: "10.2.0.2"
+  allocation_pool_end: "10.2.0.254"
 
 # List of routers in the p3 project. Format is as required by the
 # stackhpc.os-networks role.
