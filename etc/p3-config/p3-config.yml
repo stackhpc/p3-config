@@ -460,6 +460,7 @@ p3_images:
   - "{{ p3_image_magnum_k8s_fedora_25 }}"
   - "{{ p3_image_magnum_swarm_fedora_25 }}"
   - "{{ p3_image_anaconda }}"
+  - "{{ p3_image_maintenance }}"
 
 # Latest CentOS image
 p3_image_centos:
@@ -641,6 +642,24 @@ p3_image_anaconda:
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_ANACONDA_PYTHON_VER: 3
+
+p3_image_maintenance:
+  name: "CentOS7.4-MAINTENANCE"
+  elements:
+    - "centos7"
+    - "epel"
+    - "mlnx-ofed"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "vm"
+  env:
+    DIB_MLNX_OFED_VERSION: "4.1-1"
+    DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
+    DIB_MLNX_OFED_PKGLIST: "mlnx-fw-updater mft"
+    DIB_MLNX_OFED_DELETE_REPO: "y"
+  properties:
+    os_distro: "centos"
+    os_version: "7.4"
 
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
