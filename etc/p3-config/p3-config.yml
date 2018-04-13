@@ -357,6 +357,7 @@ p3_network_lln:
 p3_subnet_lln:
   name: "{{ p3_network_lln_name }}"
   cidr: "10.2.0.0/24"
+  enable_dhcp: false
   gateway_ip: "10.2.0.1"
   allocation_pool_start: "10.2.0.2"
   allocation_pool_end: "10.2.0.254"
