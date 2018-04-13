@@ -34,6 +34,8 @@ Install Ansible role dependencies from Ansible Galaxy:
        -p ansible/roles \
        -r ansible/requirements.yml
 
+Add ``--ignore-certs`` flag if you get SSL certification validation issues.
+
 Usage
 =====
 
