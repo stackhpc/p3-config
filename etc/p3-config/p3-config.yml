@@ -387,7 +387,6 @@ p3_flavors:
   - "{{ p3_flavor_compute_GPU }}"
   - "{{ p3_flavor_storage_A }}"
   - "{{ p3_flavor_storage_B }}"
-  - "{{ p3_flavor_compute_A_magnum }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -433,18 +432,6 @@ p3_flavor_storage_B:
   vcpus: 48
   extra_specs:
     "resources:CUSTOM_STORAGE_B": 1
-
-# Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
-# ALaSKA standard compute nodes, and provides an ephemeral disk partition for
-# use by container storage.
-p3_flavor_compute_A_magnum:
-  name: "compute-A-magnum"
-  ram: 131072
-  disk: 271
-  vcpus: 64
-  ephemeral: 100
-  extra_specs:
-    "resources:CUSTOM_COMPUTE_A": 1
 
 ###############################################################################
 # Software images for P-cubed
