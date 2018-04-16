@@ -366,7 +366,6 @@ p3_bdn_router:
 # stackhpc.os-flavors role.
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
-  - "{{ p3_flavor_compute_A_magnum }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -374,16 +373,6 @@ p3_flavor_compute_A:
   ram: 131072
   disk: 371
   vcpus: 64
-
-# Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
-# ALaSKA standard compute nodes, and provides an ephemeral disk partition for
-# use by container storage.
-p3_flavor_compute_A_magnum:
-  name: "compute-A-magnum"
-  ram: 131072
-  disk: 271
-  vcpus: 64
-  ephemeral: 100
 
 ###############################################################################
 # Software images for P-cubed
