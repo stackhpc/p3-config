@@ -389,16 +389,16 @@ p3_flavor_compute_A_magnum:
 # Software images for P-cubed
 
 p3_images:
-#  - "{{ p3_image_centos }}"
-#  - "{{ p3_image_ubuntu }}"
-#  - "{{ p3_image_fedora }}"
-#  - "{{ p3_image_openhpc }}"
-#  - "{{ p3_image_centos_cuda }}"
-#  - "{{ p3_image_ubuntu_cuda }}"
-#  - "{{ p3_image_mlnx_ofed }}"
-#  - "{{ p3_image_magnum_k8s_fedora_25 }}"
-#  - "{{ p3_image_magnum_swarm_fedora_25 }}"
-#  - "{{ p3_image_anaconda }}"
+  - "{{ p3_image_centos }}"
+  - "{{ p3_image_ubuntu }}"
+  - "{{ p3_image_fedora }}"
+  - "{{ p3_image_openhpc }}"
+  - "{{ p3_image_centos_cuda }}"
+  - "{{ p3_image_ubuntu_cuda }}"
+  - "{{ p3_image_mlnx_ofed }}"
+  - "{{ p3_image_magnum_k8s_fedora_25 }}"
+  - "{{ p3_image_magnum_swarm_fedora_25 }}"
+  - "{{ p3_image_anaconda }}"
   - "{{ p3_image_fedora_atomic_27 }}"
 
 # Fedora Atomic 27 image
