@@ -466,6 +466,9 @@ p3_images:
 p3_image_fedora_atomic_27:
   name: "FedoraAtomic27"
   image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+  properties:
+    os_distro: "fedora-atomic"
+    os_version: "27"
 
 # Latest CentOS image
 p3_image_centos:
@@ -681,6 +684,8 @@ p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.
 p3_container_clusters_templates:
   - "{{ p3_container_clusters_template_swarm_fedora_25 }}"
   - "{{ p3_container_clusters_template_k8s_fedora_25 }}"
+  - "{{ p3_container_clusters_template_swarm_fedora_atomic_27 }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_atomic_27 }}"
 
 # Docker swarm magnum cluster template.
 p3_container_clusters_template_swarm_fedora_25:
@@ -713,3 +718,35 @@ p3_container_clusters_template_k8s_fedora_25:
   # docker_volume_size must be > 3 to trigger creation of a volume.
   docker_volume_size: 3
   server_type: "bm"
+
+# Docker swarm magnum cluster template.
+p3_container_clusters_template_swarm_fedora_atomic_27:
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_internal_name }}"
+  fixed_subnet: "{{ p3_network_internal_name }}"
+  master_flavor: "{{ p3_flavor_compute_A.name }}"
+  flavor: "{{ p3_flavor_compute_A.name }}"
+  image: "FedoraAtomic27"
+  name: "swarm-fedora-atomic-27"
+  coe: "swarm-mode"
+  network_driver: "docker"
+  docker_storage_driver: "overlay2"
+  # docker_volume_size must be > 3 to trigger creation of a volume.
+  docker_volume_size: 3
+  server_type: "vm"
+
+# Kubernetes magnum cluster template.
+p3_container_clusters_template_k8s_fedora_atomic_27:
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_internal_name }}"
+  fixed_subnet: "{{ p3_network_internal_name }}"
+  master_flavor: "{{ p3_flavor_compute_A.name }}"
+  flavor: "{{ p3_flavor_compute_A.name }}"
+  image: "FedoraAtomic27"
+  name: "k8s-fedora-atomic-27"
+  coe: "kubernetes"
+  network_driver: "flannel"
+  docker_storage_driver: "overlay2"
+  # docker_volume_size must be > 3 to trigger creation of a volume.
+  docker_volume_size: 3
+  server_type: "vm"
