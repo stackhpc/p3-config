@@ -163,11 +163,11 @@ p3_users:
   - name: nick
     password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
-          30313134336132626364663938366233633035333133626336303061353464643333313134396530
-          3135626230626362333936356161636636363138633761360a363263356530353739663437356266
-          61623430656634306132343530623761643964323331656462326434313464393764333732386562
-          3839393732356530320a356265326238643439613461633866383235303564333034363964313137
-          62386332646138633431303936663333643939663433363234323132613565636265
+          62616137343530346366333561343539333963666266313538346237303763646534363638663865
+          3330303630353065626634323763383835333432303138380a636234623962666665373936363336
+          30613434646535663439373135343738343334623739346161646335333662383434303464356363
+          3863353435366635620a613235613064336530646666353831393337343163373263376139366330
+          39373364613332383764353963616366636637613263353166623030643866653330
     roles: "{{ p3_admin_roles }}"
   - name: nijin
     password: !vault |
@@ -288,6 +288,7 @@ p3_networks:
   - "{{ p3_network_ilab }}"
   - "{{ p3_network_internal }}"
   - "{{ p3_network_bdn }}"
+  - "{{ p3_network_lln }}"
 
 # P3 i-lab network name.
 p3_network_ilab_name: "ilab"
@@ -355,6 +356,28 @@ p3_subnet_bdn:
   gateway_ip: "10.1.0.1"
   allocation_pool_start: "10.1.0.2"
   allocation_pool_end: "10.1.0.254"
+
+# P3 Low Latency Network (LLN) network name.
+p3_network_lln_name: "p3-lln"
+
+# P3 Low Latency Network (LLN) network.
+p3_network_lln:
+  name: "{{ p3_network_lln_name }}"
+  provider_network_type: "flat"
+  provider_physical_network: "physnet3"
+  shared: False
+  # Subnet configuration.
+  subnets:
+    - "{{ p3_subnet_lln }}"
+
+# P3 Low Latency Network (LLN) subnet.
+p3_subnet_lln:
+  name: "{{ p3_network_lln_name }}"
+  cidr: "10.3.0.0/24"
+  enable_dhcp: false
+  gateway_ip: "10.3.0.1"
+  allocation_pool_start: "10.3.0.2"
+  allocation_pool_end: "10.3.0.254"
 
 # List of routers in the p3 project. Format is as required by the
 # stackhpc.os-networks role.
@@ -532,6 +555,7 @@ p3_image_openhpc:
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "systemd-modules-load"
   env:
     DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
     DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc ntp"
@@ -539,6 +563,11 @@ p3_image_openhpc:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
+      # Load the IP over IB module prior to running cloud-init --local.
+      ib_ipoib
+      # Load the Mellanox IB driver.
+      mlx5_ib
   properties:
     os_distro: "centos"
     os_version: "7.4"
@@ -574,6 +603,7 @@ p3_image_mlnx_ofed:
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "systemd-modules-load"
   env:
     DIB_MLNX_OFED_VERSION: "4.1-1"
     DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
@@ -581,6 +611,11 @@ p3_image_mlnx_ofed:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
+      # Load the IP over IB module prior to running cloud-init --local.
+      ib_ipoib
+      # Load the Mellanox IB driver.
+      mlx5_ib
   properties:
     os_distro: "centos"
     os_version: "7.4"
