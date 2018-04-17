@@ -407,7 +407,6 @@ p3_bdn_router:
 # stackhpc.os-flavors role.
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
-  - "{{ p3_flavor_compute_A_magnum }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -415,18 +414,6 @@ p3_flavor_compute_A:
   ram: 131072
   disk: 371
   vcpus: 64
-  extra_specs:
-    "resources:CUSTOM_COMPUTE_A": 1
-
-# Flavor to use for OpenStack magnum baremetal container clusters. Maps to the
-# ALaSKA standard compute nodes, and provides an ephemeral disk partition for
-# use by container storage.
-p3_flavor_compute_A_magnum:
-  name: "compute-A-magnum"
-  ram: 131072
-  disk: 271
-  vcpus: 64
-  ephemeral: 100
   extra_specs:
     "resources:CUSTOM_COMPUTE_A": 1
 
@@ -441,9 +428,16 @@ p3_images:
   - "{{ p3_image_centos_cuda }}"
   - "{{ p3_image_ubuntu_cuda }}"
   - "{{ p3_image_mlnx_ofed }}"
-  - "{{ p3_image_magnum_k8s_fedora_25 }}"
-  - "{{ p3_image_magnum_swarm_fedora_25 }}"
   - "{{ p3_image_anaconda }}"
+  - "{{ p3_image_fedora_atomic_27 }}"
+
+# Fedora Atomic 27 image
+p3_image_fedora_atomic_27:
+  name: "FedoraAtomic27"
+  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+  properties:
+    os_distro: "fedora-atomic"
+    os_version: "27"
 
 # Latest CentOS image
 p3_image_centos:
@@ -581,46 +575,6 @@ p3_image_mlnx_ofed:
     os_distro: "centos"
     os_version: "7.4"
 
-# Build of Fedora 25 for magnum & kubernetes.
-p3_image_magnum_k8s_fedora_25:
-  name: "k8s-fedora-25"
-  elements:
-    - "baremetal"
-    - "dhcp-all-interfaces"
-    - "dracut-regenerate"
-    - "enable-serial-console"
-    - "fedora"
-    - "grub2"
-    - "kubernetes"
-    - "selinux-permissive"
-  env:
-    DIB_RELEASE: 25
-  properties:
-    os_distro: "fedora"
-    os_version: "25"
-
-# Build of Fedora 25 for magnum & docker swarm (mode) 17.05 Community Edition
-# (CE).
-p3_image_magnum_swarm_fedora_25:
-  name: "swarm-ce-fedora-25"
-  elements:
-    - "baremetal"
-    - "dhcp-all-interfaces"
-    - "docker-ce"
-    - "dracut-regenerate"
-    - "enable-serial-console"
-    - "fedora"
-    - "grub2"
-    - "magnum-swarm"
-    - "selinux-permissive"
-  env:
-    DIB_RELEASE: 25
-    # Enable the [cutting] edge repository.
-    DIB_DOCKER_ENABLED_REPOS: "docker-ce-edge"
-  properties:
-    os_distro: "fedora"
-    os_version: "25"
-
 # Build of Anaconda on CentOS
 p3_image_anaconda:
   name: "CentOS7-Anaconda3"
@@ -641,19 +595,13 @@ p3_image_anaconda:
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
 
-# This creates a git checkout in the local user's home directory
-p3_image_magnum_elements: "{{ ansible_env.PWD }}/magnum"
-
 p3_image_git_elements:
   - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
     local: "{{ p3_image_stackhpc_elements }}"
-  - repo: "https://github.com/stackhpc/magnum.git"
-    local: "{{ p3_image_magnum_elements }}"
 
 # Path to include
 p3_image_elements: 
   - "{{ p3_image_stackhpc_elements }}/elements"
-  - "{{ p3_image_magnum_elements }}/magnum/drivers/k8s_fedora_ironic_v1/image"
 
 # URL of the ALaSKA repo server.
 p3_repo_server_url_base: "http://10.41.253.100:4120"
@@ -669,37 +617,35 @@ p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.
 
 # List of magnum cluster templates.
 p3_container_clusters_templates:
-  - "{{ p3_container_clusters_template_swarm_fedora_25 }}"
-  - "{{ p3_container_clusters_template_k8s_fedora_25 }}"
+  - "{{ p3_container_clusters_template_swarm_fedora_atomic_27 }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_atomic_27 }}"
 
 # Docker swarm magnum cluster template.
-p3_container_clusters_template_swarm_fedora_25:
+p3_container_clusters_template_swarm_fedora_atomic_27:
   external_network: "{{ p3_network_ilab_name }}"
   fixed_network: "{{ p3_network_internal_name }}"
   fixed_subnet: "{{ p3_network_internal_name }}"
-  master_flavor: "{{ p3_flavor_compute_A_magnum.name }}"
-  flavor: "{{ p3_flavor_compute_A_magnum.name }}"
-  image: "swarm-ce-fedora-25"
-  name: "swarm-fedora-25"
-  coe: "swarm"
+  master_flavor: "{{ p3_flavor_compute_A.name }}"
+  flavor: "{{ p3_flavor_compute_A.name }}"
+  image: "FedoraAtomic27"
+  name: "swarm-fedora-atomic-27"
+  coe: "swarm-mode"
   network_driver: "docker"
-  docker_storage_driver: "devicemapper"
-  # docker_volume_size must be > 3 to trigger creation of a volume.
-  docker_volume_size: 3
-  server_type: "bm"
+  docker_storage_driver: "overlay2"
+  # the standard vm driver now works for baremetal
+  server_type: "vm"
 
 # Kubernetes magnum cluster template.
-p3_container_clusters_template_k8s_fedora_25:
+p3_container_clusters_template_k8s_fedora_atomic_27:
   external_network: "{{ p3_network_ilab_name }}"
   fixed_network: "{{ p3_network_internal_name }}"
   fixed_subnet: "{{ p3_network_internal_name }}"
-  master_flavor: "{{ p3_flavor_compute_A_magnum.name }}"
-  flavor: "{{ p3_flavor_compute_A_magnum.name }}"
-  image: "k8s-fedora-25"
-  name: "k8s-fedora-25"
+  master_flavor: "{{ p3_flavor_compute_A.name }}"
+  flavor: "{{ p3_flavor_compute_A.name }}"
+  image: "FedoraAtomic27"
+  name: "k8s-fedora-atomic-27"
   coe: "kubernetes"
   network_driver: "flannel"
-  docker_storage_driver: "devicemapper"
-  # docker_volume_size must be > 3 to trigger creation of a volume.
-  docker_volume_size: 3
-  server_type: "bm"
+  docker_storage_driver: "overlay2"
+  # the standard vm driver now works for baremetal
+  server_type: "vm"
