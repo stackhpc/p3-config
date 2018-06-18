@@ -297,7 +297,7 @@ p3_networks:
   - "{{ p3_network_ilab }}"
   - "{{ p3_network_internal }}"
   - "{{ p3_network_bdn }}"
-  - "{{ p3_network_nogwateway }}"
+  - "{{ p3_network_nogateway }}"
   - "{{ p3_network_lln }}"
 
 # P3 i-lab network name.
