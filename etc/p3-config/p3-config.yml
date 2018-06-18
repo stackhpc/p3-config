@@ -307,7 +307,7 @@ p3_networks:
   - "{{ p3_network_ilab }}"
   - "{{ p3_network_internal }}"
   - "{{ p3_network_bdn }}"
-  - "{{ p3_network_nogateway }}"
+  - "{{ p3_network_bdn_nogateway }}"
   - "{{ p3_network_lln }}"
 
 # P3 i-lab network name.
@@ -379,7 +379,7 @@ p3_subnet_bdn:
 
 # P3 Bulk Data Network (BDN) network without gateway.
 p3_network_bdn_nogateway:
-  name: "{{ p3_network_bdn_name }}_nogateway"
+  name: "{{ p3_network_bdn_name }}-nogateway"
   provider_network_type: "vlan"
   provider_physical_network: "physnet2"
   shared: False
@@ -389,7 +389,7 @@ p3_network_bdn_nogateway:
 
 # P3 Bulk Data Network (BDN) subnet without gateway.
 p3_subnet_bdn_nogateway:
-  name: "{{ p3_network_bdn_name }}_nogateway"
+  name: "{{ p3_network_bdn_name }}-nogateway"
   cidr: "10.11.0.0/24"
   allocation_pool_start: "10.11.0.1"
   allocation_pool_end: "10.11.0.254"
