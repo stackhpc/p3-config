@@ -529,7 +529,7 @@ p3_image_fedora:
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
-  name: "CentOS7.4-OpenHPC"
+  name: "CentOS7.5-OpenHPC"
   elements:
     - "centos7"
     - "epel"
@@ -559,7 +559,7 @@ p3_image_openhpc:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.5"
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
