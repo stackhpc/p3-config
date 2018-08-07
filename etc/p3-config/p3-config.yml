@@ -364,8 +364,9 @@ p3_network_bdn:
 p3_subnet_bdn:
   name: "{{ p3_network_bdn_name }}"
   cidr: "10.1.0.0/24"
-  gateway_ip: "10.1.0.1"
-  allocation_pool_start: "10.1.0.2"
+  allocation_pool_start: "10.1.0.1"
+  dns_nameservers:
+  - "8.8.8.8"
   allocation_pool_end: "10.1.0.254"
 
 # P3 Low Latency Network (LLN) network name.
@@ -386,7 +387,7 @@ p3_subnet_lln:
   name: "{{ p3_network_lln_name }}"
   cidr: "10.2.0.0/24"
   enable_dhcp: false
-  allocation_pool_start: "10.2.0.2"
+  allocation_pool_start: "10.2.0.1"
   allocation_pool_end: "10.2.0.254"
 
 # List of routers in the p3 project. Format is as required by the
