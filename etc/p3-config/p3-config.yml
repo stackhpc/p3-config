@@ -468,6 +468,9 @@ p3_flavor_compute_A:
   vcpus: 64
   extra_specs:
     "resources:CUSTOM_COMPUTE_A": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 # ALaSKA high memory compute node.
 p3_flavor_compute_B:
@@ -477,6 +480,9 @@ p3_flavor_compute_B:
   vcpus: 64
   extra_specs:
     "resources:CUSTOM_COMPUTE_B": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 # ALaSKA GPU compute node.
 p3_flavor_compute_GPU:
@@ -486,6 +492,9 @@ p3_flavor_compute_GPU:
   vcpus: 64
   extra_specs:
     "resources:CUSTOM_COMPUTE_GPU": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 # ALaSKA disk & NVMe based storage nodes.
 p3_flavor_storage_A:
@@ -495,6 +504,9 @@ p3_flavor_storage_A:
   vcpus: 48
   extra_specs:
     "resources:CUSTOM_STORAGE_A": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 # ALaSKA SSD-based storage nodes.
 p3_flavor_storage_B:
@@ -504,6 +516,9 @@ p3_flavor_storage_B:
   vcpus: 48
   extra_specs:
     "resources:CUSTOM_STORAGE_B": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 ###############################################################################
 # Software images for P-cubed
