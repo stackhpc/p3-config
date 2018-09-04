@@ -415,6 +415,9 @@ p3_flavor_compute_A:
   vcpus: 64
   extra_specs:
     "resources:CUSTOM_COMPUTE_A": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 ###############################################################################
 # Software images for P-cubed
