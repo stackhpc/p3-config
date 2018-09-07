@@ -541,6 +541,7 @@ p3_image_ubuntu:
   elements:
     - "ubuntu"
     - "dhcp-all-interfaces"
+    - "systemd-modules-load"
     - "vm"
   env:
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
@@ -558,6 +559,7 @@ p3_image_ubuntu_cuda:
   elements:
     - "ubuntu"
     - "dhcp-all-interfaces"
+    - "systemd-modules-load"
     - "nvidia-cuda"
     - "vm"
   env:
