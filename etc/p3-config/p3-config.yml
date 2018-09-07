@@ -474,6 +474,7 @@ p3_image_ubuntu:
   name: "Ubuntu16"
   elements:
     - "ubuntu"
+    - "dhcp-all-interfaces"
     - "vm"
   properties:
     os_distro: "ubuntu"
@@ -484,6 +485,7 @@ p3_image_ubuntu_cuda:
   name: "Ubuntu16-CUDA"
   elements:
     - "ubuntu"
+    - "dhcp-all-interfaces"
     - "nvidia-cuda"
     - "vm"
   env:
