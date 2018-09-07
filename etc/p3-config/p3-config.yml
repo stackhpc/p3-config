@@ -542,6 +542,12 @@ p3_image_ubuntu:
     - "ubuntu"
     - "dhcp-all-interfaces"
     - "vm"
+  env:
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
+      # Load the IP over IB module prior to running cloud-init --local.
+      ib_ipoib
+      # Load the Mellanox IB driver.
+      mlx5_ib
   properties:
     os_distro: "ubuntu"
     os_version: "16.04"
@@ -556,6 +562,11 @@ p3_image_ubuntu_cuda:
     - "vm"
   env:
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
+      # Load the IP over IB module prior to running cloud-init --local.
+      ib_ipoib
+      # Load the Mellanox IB driver.
+      mlx5_ib
   properties:
     os_distro: "ubuntu"
     os_version: "16.04"
