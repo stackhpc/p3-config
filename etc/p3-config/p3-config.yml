@@ -656,9 +656,11 @@ p3_container_clusters_templates:
 
 # Docker swarm magnum cluster template.
 p3_container_clusters_template_swarm_fedora_atomic_27:
+  flags:
+  - "floating-ip-disabled"
   external_network: "{{ p3_network_ilab_name }}"
-  fixed_network: "{{ p3_network_internal_name }}"
-  fixed_subnet: "{{ p3_network_internal_name }}"
+  fixed_network: "{{ p3_network_ilab_name }}"
+  fixed_subnet: "{{ p3_network_ilab_name }}"
   master_flavor: "{{ p3_flavor_compute_A.name }}"
   flavor: "{{ p3_flavor_compute_A.name }}"
   image: "FedoraAtomic27"
@@ -671,9 +673,12 @@ p3_container_clusters_template_swarm_fedora_atomic_27:
 
 # Kubernetes magnum cluster template.
 p3_container_clusters_template_k8s_fedora_atomic_27:
+  flags:
+  - "floating-ip-disabled"
+  labels: "cgroup_driver=cgroupfs"
   external_network: "{{ p3_network_ilab_name }}"
-  fixed_network: "{{ p3_network_internal_name }}"
-  fixed_subnet: "{{ p3_network_internal_name }}"
+  fixed_network: "{{ p3_network_ilab_name }}"
+  fixed_subnet: "{{ p3_network_ilab_name }}"
   master_flavor: "{{ p3_flavor_compute_A.name }}"
   flavor: "{{ p3_flavor_compute_A.name }}"
   image: "FedoraAtomic27"
