@@ -563,7 +563,7 @@ p3_image_openhpc:
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
-  name: "CentOS7.4-CUDA"
+  name: "CentOS7.5-CUDA"
   elements:
     - "centos7"
     - "epel"
@@ -579,7 +579,7 @@ p3_image_centos_cuda:
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.5"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
