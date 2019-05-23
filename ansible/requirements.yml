@@ -4,3 +4,4 @@
 - src: stackhpc.os-networks
 - src: stackhpc.os-projects
 - src: stackhpc.os-images
+  version: v1.3.0
