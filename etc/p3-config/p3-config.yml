@@ -643,6 +643,7 @@ p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
 p3_image_git_elements:
   - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
     local: "{{ p3_image_stackhpc_elements }}"
+    version: "v1.0.0"
 
 # Path to include
 p3_image_elements: 
