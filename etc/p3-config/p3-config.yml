@@ -477,11 +477,11 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.6"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
-  name: "Ubuntu16"
+  name: "Ubuntu18"
   elements:
     - "ubuntu"
     - "dhcp-all-interfaces"
@@ -495,11 +495,11 @@ p3_image_ubuntu:
       mlx5_ib
   properties:
     os_distro: "ubuntu"
-    os_version: "16.04"
+    os_version: "18.04"
 
 # Latest Ubuntu image with CUDA
 p3_image_ubuntu_cuda:
-  name: "Ubuntu16-CUDA"
+  name: "Ubuntu18-CUDA"
   elements:
     - "ubuntu"
     - "dhcp-all-interfaces"
@@ -515,7 +515,7 @@ p3_image_ubuntu_cuda:
       mlx5_ib
   properties:
     os_distro: "ubuntu"
-    os_version: "16.04"
+    os_version: "18.04"
 
 # Latest Fedora Core image
 p3_image_fedora:
@@ -572,7 +572,7 @@ p3_image_openhpc:
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
-  name: "CentOS7.4-CUDA"
+  name: "CentOS7.6-CUDA"
   elements:
     - "centos7"
     - "epel"
@@ -583,16 +583,16 @@ p3_image_centos_cuda:
     - "vm"
   env:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python36"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.6"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
-  name: "CentOS7.4-OFED4.1"
+  name: "CentOS7.6-OFED4.6"
   elements:
     - "centos7"
     - "epel"
@@ -603,8 +603,7 @@ p3_image_mlnx_ofed:
     - "vm"
     - "systemd-modules-load"
   env:
-    DIB_MLNX_OFED_VERSION: "4.1-1"
-    DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
+    DIB_MLNX_OFED_REPO_FILE: "https://linux.mellanox.com/public/repo/mlnx_ofed/latest/rhel7.6/mellanox_mlnx_ofed.repo"
     DIB_MLNX_OFED_DELETE_REPO: "y"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
@@ -616,11 +615,11 @@ p3_image_mlnx_ofed:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.6"
 
 # Build of Anaconda on CentOS
 p3_image_anaconda:
-  name: "CentOS7-Anaconda3"
+  name: "CentOS7.6-Anaconda3"
   elements:
     - "centos7"
     - "epel"
@@ -634,6 +633,9 @@ p3_image_anaconda:
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_ANACONDA_PYTHON_VER: 3
+  properties:
+    os_distro: "centos"
+    os_version: "7.6"
 
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
@@ -641,6 +643,7 @@ p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
 p3_image_git_elements:
   - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
     local: "{{ p3_image_stackhpc_elements }}"
+    version: "v1.0.0"
 
 # Path to include
 p3_image_elements: 
@@ -651,9 +654,6 @@ p3_repo_server_url_base: "http://10.41.253.100:4120"
 
 # URL of the ALaSKA-Extras repo.
 p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras' }}"
-
-# URL of the Mellanox OFED repo.
-p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.1-1.0.2.0-rhel7.4-x86_64' }}"
 
 ###############################################################################
 # Configuration of magnum cluster templates.
