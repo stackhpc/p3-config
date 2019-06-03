@@ -561,15 +561,15 @@ p3_images:
   - "{{ p3_image_ubuntu_cuda }}"
   - "{{ p3_image_mlnx_ofed }}"
   - "{{ p3_image_anaconda }}"
-  - "{{ p3_image_fedora_atomic_27 }}"
+  - "{{ p3_image_fedora_atomic }}"
 
 # Fedora Atomic 27 image
-p3_image_fedora_atomic_27:
-  name: "FedoraAtomic27"
-  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+p3_image_fedora_atomic:
+  name: "FedoraAtomic29"
+  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-29-updates-20190401.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190401.0.x86_64.qcow2"
   properties:
     os_distro: "fedora-atomic"
-    os_version: "27"
+    os_version: "29"
 
 # Latest CentOS image
 p3_image_centos:
@@ -587,11 +587,11 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.6"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
-  name: "Ubuntu16"
+  name: "Ubuntu18"
   elements:
     - "ubuntu"
     - "dhcp-all-interfaces"
@@ -605,11 +605,11 @@ p3_image_ubuntu:
       mlx5_ib
   properties:
     os_distro: "ubuntu"
-    os_version: "16.04"
+    os_version: "18.04"
 
 # Latest Ubuntu image with CUDA
 p3_image_ubuntu_cuda:
-  name: "Ubuntu16-CUDA"
+  name: "Ubuntu18-CUDA"
   elements:
     - "ubuntu"
     - "dhcp-all-interfaces"
@@ -625,11 +625,11 @@ p3_image_ubuntu_cuda:
       mlx5_ib
   properties:
     os_distro: "ubuntu"
-    os_version: "16.04"
+    os_version: "18.04"
 
 # Latest Fedora Core image
 p3_image_fedora:
-  name: "FedoraCore"
+  name: "FedoraCore29"
   elements:
     - "fedora"
     - "dracut-regenerate"
@@ -638,13 +638,13 @@ p3_image_fedora:
     - "alaska-extras"
     - "vm"
   env:
-    DIB_RELEASE: 25
+    DIB_RELEASE: 29
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
-    os_version: "25"
+    os_version: "29"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
@@ -682,7 +682,7 @@ p3_image_openhpc:
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
-  name: "CentOS7.4-CUDA"
+  name: "CentOS7.6-CUDA"
   elements:
     - "centos7"
     - "epel"
@@ -693,16 +693,16 @@ p3_image_centos_cuda:
     - "vm"
   env:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python36"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.6"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
-  name: "CentOS7.4-OFED4.1"
+  name: "CentOS7.6-OFED4.6"
   elements:
     - "centos7"
     - "epel"
@@ -713,8 +713,7 @@ p3_image_mlnx_ofed:
     - "vm"
     - "systemd-modules-load"
   env:
-    DIB_MLNX_OFED_VERSION: "4.1-1"
-    DIB_MLNX_OFED_REPO: "{{ p3_repo_server_url_mlnx_ofed }}"
+    DIB_MLNX_OFED_REPO_FILE: "https://linux.mellanox.com/public/repo/mlnx_ofed/latest/rhel7.6/mellanox_mlnx_ofed.repo"
     DIB_MLNX_OFED_DELETE_REPO: "y"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
@@ -726,11 +725,11 @@ p3_image_mlnx_ofed:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.4"
+    os_version: "7.6"
 
 # Build of Anaconda on CentOS
 p3_image_anaconda:
-  name: "CentOS7-Anaconda3"
+  name: "CentOS7.6-Anaconda3"
   elements:
     - "centos7"
     - "epel"
@@ -744,6 +743,9 @@ p3_image_anaconda:
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_ANACONDA_PYTHON_VER: 3
+  properties:
+    os_distro: "centos"
+    os_version: "7.6"
 
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
@@ -751,6 +753,7 @@ p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
 p3_image_git_elements:
   - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
     local: "{{ p3_image_stackhpc_elements }}"
+    version: "v1.0.0"
 
 # Path to include
 p3_image_elements: 
@@ -762,27 +765,24 @@ p3_repo_server_url_base: "http://10.41.253.100:4120"
 # URL of the ALaSKA-Extras repo.
 p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras' }}"
 
-# URL of the Mellanox OFED repo.
-p3_repo_server_url_mlnx_ofed: "{{ p3_repo_server_url_base ~ '/MLNX_OFED_LINUX-4.1-1.0.2.0-rhel7.4-x86_64' }}"
-
 ###############################################################################
 # Configuration of magnum cluster templates.
 
 # List of magnum cluster templates.
 p3_container_clusters_templates:
-  - "{{ p3_container_clusters_template_swarm_fedora_atomic_27 }}"
-  - "{{ p3_container_clusters_template_k8s_fedora_atomic_27 }}"
+  - "{{ p3_container_clusters_template_swarm_fedora_atomic }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_atomic }}"
 
 # Docker swarm magnum cluster template.
-p3_container_clusters_template_swarm_fedora_atomic_27:
+p3_container_clusters_template_swarm_fedora_atomic:
   floating-ip-disabled:
   external_network: "{{ p3_network_ilab_name }}"
   fixed_network: "{{ p3_network_ilab_name }}"
   fixed_subnet: "{{ p3_network_ilab_name }}"
   master_flavor: "{{ p3_flavor_compute_A.name }}"
   flavor: "{{ p3_flavor_compute_A.name }}"
-  image: "FedoraAtomic27"
-  name: "swarm-fedora-atomic-27"
+  image: "{{ p3_image_fedora_atomic.name }}"
+  name: "swarm-fedora-atomic-29"
   coe: "swarm-mode"
   network_driver: "docker"
   docker_storage_driver: "overlay2"
@@ -790,16 +790,16 @@ p3_container_clusters_template_swarm_fedora_atomic_27:
   server_type: "vm"
 
 # Kubernetes magnum cluster template.
-p3_container_clusters_template_k8s_fedora_atomic_27:
+p3_container_clusters_template_k8s_fedora_atomic:
   floating-ip-disabled:
-  labels: "cgroup_driver=cgroupfs"
+  labels: "cgroup_driver=cgroupfs,kube_tag=v1.14.1"
   external_network: "{{ p3_network_ilab_name }}"
   fixed_network: "{{ p3_network_ilab_name }}"
   fixed_subnet: "{{ p3_network_ilab_name }}"
   master_flavor: "{{ p3_flavor_compute_A.name }}"
   flavor: "{{ p3_flavor_compute_A.name }}"
-  image: "FedoraAtomic27"
-  name: "k8s-fedora-atomic-27"
+  image: "{{ p3_image_fedora_atomic.name }}"
+  name: "k8s-fedora-atomic-29"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
