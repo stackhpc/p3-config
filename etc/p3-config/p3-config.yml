@@ -451,15 +451,15 @@ p3_images:
   - "{{ p3_image_ubuntu_cuda }}"
   - "{{ p3_image_mlnx_ofed }}"
   - "{{ p3_image_anaconda }}"
-  - "{{ p3_image_fedora_atomic_27 }}"
+  - "{{ p3_image_fedora_atomic }}"
 
 # Fedora Atomic 27 image
-p3_image_fedora_atomic_27:
-  name: "FedoraAtomic27"
-  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+p3_image_fedora_atomic:
+  name: "FedoraAtomic29"
+  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-29-updates-20190401.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190401.0.x86_64.qcow2"
   properties:
     os_distro: "fedora-atomic"
-    os_version: "27"
+    os_version: "29"
 
 # Latest CentOS image
 p3_image_centos:
@@ -519,7 +519,7 @@ p3_image_ubuntu_cuda:
 
 # Latest Fedora Core image
 p3_image_fedora:
-  name: "FedoraCore"
+  name: "FedoraCore29"
   elements:
     - "fedora"
     - "dracut-regenerate"
@@ -528,13 +528,13 @@ p3_image_fedora:
     - "alaska-extras"
     - "vm"
   env:
-    DIB_RELEASE: 25
+    DIB_RELEASE: 29
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
-    os_version: "25"
+    os_version: "29"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
@@ -660,19 +660,19 @@ p3_repo_server_url_alaska_extras: "{{ p3_repo_server_url_base ~ '/ALaSKA-Extras'
 
 # List of magnum cluster templates.
 p3_container_clusters_templates:
-  - "{{ p3_container_clusters_template_swarm_fedora_atomic_27 }}"
-  - "{{ p3_container_clusters_template_k8s_fedora_atomic_27 }}"
+  - "{{ p3_container_clusters_template_swarm_fedora_atomic }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_atomic }}"
 
 # Docker swarm magnum cluster template.
-p3_container_clusters_template_swarm_fedora_atomic_27:
+p3_container_clusters_template_swarm_fedora_atomic:
   floating-ip-disabled:
   external_network: "{{ p3_network_ilab_name }}"
   fixed_network: "{{ p3_network_ilab_name }}"
   fixed_subnet: "{{ p3_network_ilab_name }}"
   master_flavor: "{{ p3_flavor_compute_A.name }}"
   flavor: "{{ p3_flavor_compute_A.name }}"
-  image: "FedoraAtomic27"
-  name: "swarm-fedora-atomic-27"
+  image: "{{ p3_image_fedora_atomic.name }}"
+  name: "swarm-fedora-atomic-29"
   coe: "swarm-mode"
   network_driver: "docker"
   docker_storage_driver: "overlay2"
@@ -680,16 +680,16 @@ p3_container_clusters_template_swarm_fedora_atomic_27:
   server_type: "vm"
 
 # Kubernetes magnum cluster template.
-p3_container_clusters_template_k8s_fedora_atomic_27:
+p3_container_clusters_template_k8s_fedora_atomic:
   floating-ip-disabled:
-  labels: "cgroup_driver=cgroupfs"
+  labels: "cgroup_driver=cgroupfs,kube_tag=v1.14.1"
   external_network: "{{ p3_network_ilab_name }}"
   fixed_network: "{{ p3_network_ilab_name }}"
   fixed_subnet: "{{ p3_network_ilab_name }}"
   master_flavor: "{{ p3_flavor_compute_A.name }}"
   flavor: "{{ p3_flavor_compute_A.name }}"
-  image: "FedoraAtomic27"
-  name: "k8s-fedora-atomic-27"
+  image: "{{ p3_image_fedora_atomic.name }}"
+  name: "k8s-fedora-atomic-29"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
