@@ -274,13 +274,14 @@ p3_users:
 p3_admin_roles:
   - admin
   - heat_stack_owner
+  - monasca-editor
   - monasca-user
 
 # List of roles to apply to regular users in the p3 project.
 p3_user_roles:
   - heat_stack_owner
   - observer
-  - monasca-read-only-user
+  - monasca-user
 
 # List of keypairs to register in the p3 project.
 p3_keypairs: []
@@ -453,7 +454,7 @@ p3_images:
   - "{{ p3_image_anaconda }}"
   - "{{ p3_image_fedora_atomic }}"
 
-# Fedora Atomic 27 image
+# Fedora Atomic 29 image
 p3_image_fedora_atomic:
   name: "FedoraAtomic29"
   image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-29-updates-20190401.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190401.0.x86_64.qcow2"
