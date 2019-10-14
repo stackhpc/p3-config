@@ -602,6 +602,7 @@ p3_images:
   - "{{ p3_image_mlnx_ofed }}"
   - "{{ p3_image_anaconda }}"
   - "{{ p3_image_fedora_atomic }}"
+  - "{{ p3_image_fedora_coreos }}"
 
 # Fedora Atomic 29 image
 p3_image_fedora_atomic:
@@ -610,6 +611,13 @@ p3_image_fedora_atomic:
   properties:
     os_distro: "fedora-atomic"
     os_version: "29"
+
+p3_image_fedora_coreos:
+  name: "FedoraCoreOS30"
+  image_url: "https://builds.coreos.fedoraproject.org/prod/streams/testing/builds/30.20191002.0/x86_64/fedora-coreos-30.20191002.0-openstack.x86_64.qcow2.xz"
+  properties:
+    os_distro: "fedora-coreos"
+    os_version: "30"
 
 # Latest CentOS image
 p3_image_centos:
@@ -627,7 +635,7 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: "7.6"
+    os_version: "7.7"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
@@ -688,7 +696,7 @@ p3_image_fedora:
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
-  name: "CentOS7.6-OpenHPC"
+  name: "CentOS7.7-OpenHPC"
   elements:
     - "centos7"
     - "epel"
@@ -718,11 +726,11 @@ p3_image_openhpc:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.6"
+    os_version: "7.7"
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
-  name: "CentOS7.6-CUDA"
+  name: "CentOS7.7-CUDA"
   elements:
     - "centos7"
     - "epel"
@@ -738,11 +746,11 @@ p3_image_centos_cuda:
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "centos"
-    os_version: "7.6"
+    os_version: "7.7"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
-  name: "CentOS7.6-OFED4.6"
+  name: "CentOS7.7-OFED4.6"
   elements:
     - "centos7"
     - "epel"
@@ -765,11 +773,11 @@ p3_image_mlnx_ofed:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.6"
+    os_version: "7.7"
 
 # Build of Anaconda on CentOS
 p3_image_anaconda:
-  name: "CentOS7.6-Anaconda3"
+  name: "CentOS7.7-Anaconda3"
   elements:
     - "centos7"
     - "epel"
@@ -785,7 +793,7 @@ p3_image_anaconda:
     DIB_ANACONDA_PYTHON_VER: 3
   properties:
     os_distro: "centos"
-    os_version: "7.6"
+    os_version: "7.7"
 
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
