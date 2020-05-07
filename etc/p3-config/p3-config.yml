@@ -651,7 +651,7 @@ p3_image_fedora_coreos:
 
 # Latest CentOS image
 p3_image_centos:
-  name: "CentOS7"
+  name: "CentOS7.8"
   elements:
     - "centos7"
     - "epel"
@@ -665,7 +665,7 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "centos"
-    os_version: "7.7"
+    os_version: "7.8"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
@@ -726,7 +726,7 @@ p3_image_fedora:
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
-  name: "CentOS7.7-OpenHPC"
+  name: "CentOS7.8-OpenHPC"
   elements:
     - "centos7"
     - "epel"
@@ -741,7 +741,7 @@ p3_image_openhpc:
     DIB_OPENHPC_PKGLIST: >
         ntp fio strace flex bison infiniband-diags boost boost-devel fftw fftw-devel vim emacs git git-lfs
         python36 python36-devel python-virtualenv numpy boost-python
-        lmod-ohpc mrsh-ohpc lustre-client-ohpc slurm-ohpc
+        lmod-ohpc mrsh-ohpc slurm-ohpc
         gnu7-compilers-ohpc hdf5-gnu7-ohpc openblas-gnu7-ohpc
         mvapich2-gnu7-ohpc scalapack-gnu7-mvapich2-ohpc phdf5-gnu7-mvapich2-ohpc imb-gnu7-mvapich2-ohpc
         openmpi3-gnu7-ohpc scalapack-gnu7-openmpi3-ohpc phdf5-gnu7-openmpi3-ohpc imb-gnu7-openmpi3-ohpc
@@ -756,11 +756,11 @@ p3_image_openhpc:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.7"
+    os_version: "7.8"
 
 # Build of nVidia CUDA on CentOS
 p3_image_centos_cuda:
-  name: "CentOS7.7-CUDA"
+  name: "CentOS7.8-CUDA"
   elements:
     - "centos7"
     - "epel"
@@ -776,11 +776,11 @@ p3_image_centos_cuda:
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
   properties:
     os_distro: "centos"
-    os_version: "7.7"
+    os_version: "7.8"
 
 # Build of Mellanox OFED on CentOS
 p3_image_mlnx_ofed:
-  name: "CentOS7.7-OFED4.6"
+  name: "CentOS7.8-OFED4.6"
   elements:
     - "centos7"
     - "epel"
@@ -803,11 +803,11 @@ p3_image_mlnx_ofed:
       mlx5_ib
   properties:
     os_distro: "centos"
-    os_version: "7.7"
+    os_version: "7.8"
 
 # Build of Anaconda on CentOS
 p3_image_anaconda:
-  name: "CentOS7.7-Anaconda3"
+  name: "CentOS7.8-Anaconda3"
   elements:
     - "centos7"
     - "epel"
@@ -823,7 +823,7 @@ p3_image_anaconda:
     DIB_ANACONDA_PYTHON_VER: 3
   properties:
     os_distro: "centos"
-    os_version: "7.7"
+    os_version: "7.8"
 
 # This creates a git checkout in the local user's home directory
 p3_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
