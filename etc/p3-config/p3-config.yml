@@ -427,6 +427,11 @@ p3_bdn_router:
 # stackhpc.os-flavors role.
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
+  - "{{ p3_flavor_general_xlarge }}"
+  - "{{ p3_flavor_general_large }}"
+  - "{{ p3_flavor_general_medium }}"
+  - "{{ p3_flavor_general_small }}"
+  - "{{ p3_flavor_general_tiny }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -439,6 +444,51 @@ p3_flavor_compute_A:
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
+
+p3_flavor_general_xlarge:
+  name: "general.v1.xlarge"
+  vcpus: 28
+  ram: 184320
+  disk: 20
+  ephemeral: 340
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_large:
+  name: "general.v1.large"
+  vcpus: 28
+  ram: 92160
+  disk: 20
+  ephemeral: 160
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_medium:
+  name: "general.v1.medium"
+  vcpus: 14
+  ram: 46080
+  disk: 20
+  ephemeral: 60
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_small:
+  name: "general.v1.small"
+  vcpus: 6
+  ram: 22528
+  disk: 20
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_tiny:
+  name: "general.v1.tiny"
+  vcpus: 2
+  ram: 6144
+  disk: 12
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
 
 ###############################################################################
 # Software images for P-cubed
