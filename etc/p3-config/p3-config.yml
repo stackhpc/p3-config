@@ -558,6 +558,11 @@ p3_flavors:
   - "{{ p3_flavor_compute_GPU }}"
   - "{{ p3_flavor_storage_A }}"
   - "{{ p3_flavor_storage_B }}"
+  - "{{ p3_flavor_general_xlarge }}"
+  - "{{ p3_flavor_general_large }}"
+  - "{{ p3_flavor_general_medium }}"
+  - "{{ p3_flavor_general_small }}"
+  - "{{ p3_flavor_general_tiny }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -618,6 +623,54 @@ p3_flavor_storage_B:
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
+
+# NOTE(wszumski): These are based on fractions of the machine assumming
+# 125GB RAM, 744G Storage, 32 CPUS (hyperthreading disabled)
+
+p3_flavor_general_xlarge:
+  name: "general.v1.xlarge"
+  vcpus: 30
+  ram: 100000
+  disk: 20
+  ephemeral: 340
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_large:
+  name: "general.v1.large"
+  vcpus: 30
+  ram: 50000
+  disk: 20
+  ephemeral: 160
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_medium:
+  name: "general.v1.medium"
+  vcpus: 15
+  ram: 25000
+  disk: 20
+  ephemeral: 60
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_small:
+  name: "general.v1.small"
+  vcpus: 6
+  ram: 12500
+  disk: 20
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_tiny:
+  name: "general.v1.tiny"
+  vcpus: 2
+  ram: 6250
+  disk: 12
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
 
 ###############################################################################
 # Software images for P-cubed
