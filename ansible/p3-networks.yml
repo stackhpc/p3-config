@@ -10,3 +10,4 @@
       os_networks_auth: "{{ openstack_auth }}"
       os_networks: "{{ p3_networks }}"
       os_networks_routers: "{{ p3_routers }}"
+      os_networks_security_groups: "{{ p3_security_groups }}"
