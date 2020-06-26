@@ -503,7 +503,7 @@ p3_subnet_bdn:
   cidr: "10.1.0.0/24"
   allocation_pool_start: "10.1.0.1"
   dns_nameservers:
-  - "8.8.8.8"
+  - "0.0.0.0"
   allocation_pool_end: "10.1.0.254"
 
 # P3 Low Latency Network (LLN) network name.
