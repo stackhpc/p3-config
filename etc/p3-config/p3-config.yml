@@ -575,7 +575,21 @@ octavia_subnet:
 
 # P3 security groups.
 p3_security_groups:
+  - "{{ p3_default_sg }}"
   - "{{ octavia_sg }}"
+
+# Default security group.
+p3_default_sg:
+  name: default
+  description: "Default security group"
+  project: p3
+  rules:
+    - protocol: tcp
+      port_range_min: 22
+      port_range_max: 22
+      remote_ip_prefix: "0.0.0.0/0"
+    - protocol: icmp
+      remote_ip_prefix: "0.0.0.0/0"
 
 # Octavia security group.
 octavia_sg:
