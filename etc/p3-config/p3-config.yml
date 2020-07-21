@@ -637,6 +637,14 @@ p3_flavors:
   - "{{ p3_flavor_general_small }}"
   - "{{ p3_flavor_general_tiny }}"
   - "{{ octavia_flavor_tiny }}"
+  - "{{ p3_flavor_opt_xlarge }}"
+  - "{{ p3_flavor_opt_large }}"
+  - "{{ p3_flavor_opt_medium }}"
+  - "{{ p3_flavor_opt_medium_plus }}"
+  - "{{ p3_flavor_opt_small }}"
+  - "{{ p3_flavor_opt_small_plus }}"
+  - "{{ p3_flavor_opt_tiny }}"
+  - "{{ p3_flavor_opt_minuscule }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -756,6 +764,174 @@ octavia_flavor_tiny:
   extra_specs:
     "hw_rng:allowed": "True"
 
+p3_flavor_opt_xlarge:
+  name: "optimised.v1.xlarge"
+  vcpus: 30
+  ram: 102400
+  disk: 20
+  ephemeral: 340
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "2"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 2
+    "hw:cpu_cores": 15
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 2
+    "hw:cpu_maxcores": 15
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_large:
+  name: "optimised.v1.large"
+  vcpus: 15
+  ram: 51200
+  disk: 20
+  ephemeral: 160
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 15
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 15
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_medium_plus:
+  name: "optimised.v1.medium.plus"
+  vcpus: 8
+  ram: 25600
+  disk: 20
+  ephemeral: 80
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 8
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 8
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_medium:
+  name: "optimised.v1.medium"
+  vcpus: 7
+  ram: 25600
+  disk: 20
+  ephemeral: 80
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 7
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 7
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_small:
+  name: "optimised.v1.small"
+  vcpus: 3
+  ram: 25600
+  disk: 20
+  ephemeral: 80
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 3
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 3
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_small_plus:
+  name: "optimised.v1.small.plus"
+  vcpus: 4
+  ram: 25600
+  disk: 20
+  ephemeral: 80
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 4
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 4
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_tiny:
+  name: "optimised.v1.tiny"
+  vcpus: 2
+  ram: 12800
+  disk: 20
+  ephemeral: 0
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 2
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 2
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_minuscule:
+  name: "optimised.v1.minuscule"
+  vcpus: 1
+  ram: 6400
+  disk: 20
+  ephemeral: 0
+  extra_specs:
+    "trait:HW_CPU_HYPERTHREADING": forbidden
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 1
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 1
+    "hw:cpu_maxthreads": 1
+
 ###############################################################################
 # Software images for P-cubed
 
@@ -770,6 +946,25 @@ p3_images:
   - "{{ p3_image_anaconda }}"
   - "{{ p3_image_fedora_atomic }}"
   - "{{ p3_image_fedora_coreos }}"
+  - "{{ p3_image_ubuntu_18_04 }}"
+
+# Ubuntu 18.04
+p3_image_ubuntu_18_04:
+  name: "ubuntu-18.04"
+  image_url: "https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
+  properties:
+    os_distro: "ubuntu"
+    os_version: "18.04"
+    hw_pci_numa_affinity_policy: required
+    hw_machine_type: q35
+    hw_disk_bus: scsi
+    hw_scsi_model: virtio-scsi
+    hw_cdrom_bus: scsi
+    hw_rescue_bus: sata
+    hw_video_model: virtio
+    hw_serial_port_count: 0
+    hw_vif_multiqueue_enabled: true
+    hw_emulator_threads_policy : shared
 
 # Fedora Atomic 29 image
 p3_image_fedora_atomic:
@@ -971,7 +1166,7 @@ p3_image_git_elements:
     version: "v1.0.0"
 
 # Path to include
-p3_image_elements: 
+p3_image_elements:
   - "{{ p3_image_stackhpc_elements }}/elements"
 
 # URL of the ALaSKA repo server.
