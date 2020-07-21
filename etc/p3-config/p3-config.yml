@@ -706,9 +706,7 @@ p3_image_ubuntu_20_04:
     hw_video_model: virtio
     hw_serial_port_count: 0
     hw_vif_multiqueue_enabled: true
-    hw_emulator_threads_policy" : shared
-    # Page size large forbidden against '<empty>' (HTTP 400)
-    # hw_mem_page_size: large
+    hw_emulator_threads_policy : shared
 
 # Centos 8.2
 p3_image_centos_8_2:
@@ -726,9 +724,7 @@ p3_image_centos_8_2:
     hw_video_model: virtio
     hw_serial_port_count: 0
     hw_vif_multiqueue_enabled: true
-    hw_emulator_threads_policy" : shared
-    # Page size large forbidden against '<empty>' (HTTP 400)
-    # hw_mem_page_size: large
+    hw_emulator_threads_policy: shared
 
 # Centos 7.8
 p3_image_centos_7_8:
@@ -746,9 +742,7 @@ p3_image_centos_7_8:
     hw_video_model: virtio
     hw_serial_port_count: 0
     hw_vif_multiqueue_enabled: true
-    hw_emulator_threads_policy" : shared
-    # Page size large forbidden against '<empty>' (HTTP 400)
-    # hw_mem_page_size: large
+    hw_emulator_threads_policy: shared
 
 # Ubuntu 18.04
 p3_image_ubuntu_18_04:
@@ -766,9 +760,7 @@ p3_image_ubuntu_18_04:
     hw_video_model: virtio
     hw_serial_port_count: 0
     hw_vif_multiqueue_enabled: true
-    hw_emulator_threads_policy" : shared
-    # Page size large forbidden against '<empty>' (HTTP 400)
-    # hw_mem_page_size: large
+    hw_emulator_threads_policy: shared
 
 # Ubuntu 18.04 unoptimised (used for benchmark comparisons)
 p3_image_ubuntu_18_04_unoptimised:
