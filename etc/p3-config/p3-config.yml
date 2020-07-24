@@ -663,7 +663,7 @@ p3_image_fedora_coreos:
 p3_image_centos:
   name: "CentOS8.2"
   elements:
-    - "centos-minimal"
+    - "centos"
     - "epel"
     - "selinux-permissive"
     - "alaska-extras"
@@ -674,7 +674,7 @@ p3_image_centos:
     - "systemd-modules-load"
   env:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
@@ -858,6 +858,9 @@ p3_image_git_elements:
 # Path to include
 p3_image_elements: 
   - "{{ p3_image_stackhpc_elements }}/elements"
+
+# Diskimage builder version
+p3_image_dib_version: "3.1.0"
 
 # URL of the ALaSKA repo server.
 p3_repo_server_url_base: "http://10.41.253.100:4120"
