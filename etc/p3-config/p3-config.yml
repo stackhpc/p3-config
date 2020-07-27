@@ -680,7 +680,9 @@ p3_image_centos:
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
+      # Load the IP over IB module prior to running cloud-init --local.
       ib_ipoib
+      # Load the Mellanox IB driver.
       mlx5_ib
   properties:
     os_distro: "centos"
@@ -701,7 +703,7 @@ p3_image_centos7:
   env:
     BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_RELEASE: "7"
@@ -760,7 +762,7 @@ p3_image_fedora:
   env:
     DIB_RELEASE: 31
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
@@ -792,7 +794,7 @@ p3_image_openhpc:
         openmpi3-gnu7-ohpc scalapack-gnu7-openmpi3-ohpc phdf5-gnu7-openmpi3-ohpc imb-gnu7-openmpi3-ohpc
     DIB_OPENHPC_DELETE_REPO: "n"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
@@ -820,7 +822,7 @@ p3_image_centos_cuda:
     DIB_RELEASE: "7"
     BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python36"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
@@ -848,7 +850,7 @@ p3_image_centos_ofed:
     DIB_MLNX_OFED_DELETE_REPO: "y"
     DIB_MLNX_OFED_PKGLIST: "--nogpgcheck mlnx-ofed-kernel-only mlnx-fw-updater"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
@@ -876,7 +878,7 @@ p3_image_anaconda:
     DIB_RELEASE: "7"
     BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_ANACONDA_PYTHON_VER: 3
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
