@@ -778,6 +778,7 @@ p3_image_openhpc:
     - "dhcp-all-interfaces"
     - "vm"
     - "systemd-modules-load"
+    - "cloud-init-datasources"
   env:
     DIB_RELEASE: "7"
     BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
@@ -793,6 +794,7 @@ p3_image_openhpc:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
       # Load the IP over IB module prior to running cloud-init --local.
       ib_ipoib
@@ -813,6 +815,7 @@ p3_image_centos_cuda:
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "cloud-init-datasources"
   env:
     DIB_RELEASE: "7"
     BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
@@ -820,6 +823,7 @@ p3_image_centos_cuda:
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone python36"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
   properties:
     os_distro: "centos"
     os_version: "7.8"
@@ -836,6 +840,7 @@ p3_image_centos_ofed:
     - "dhcp-all-interfaces"
     - "vm"
     - "systemd-modules-load"
+    - "cloud-init-datasources"
   env:
     DIB_MLNX_OFED_REPO_FILE: ""
     DIB_MLNX_OFED_REPO: "http://10.41.253.100:4120/MLNX_OFED_LINUX-5.0-2.1.8.0-rhel7.8-ext"
@@ -845,6 +850,7 @@ p3_image_centos_ofed:
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
       # Load the IP over IB module prior to running cloud-init --local.
       ib_ipoib
@@ -865,6 +871,7 @@ p3_image_anaconda:
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "cloud-init-datasources"
   env:
     DIB_RELEASE: "7"
     BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
@@ -872,6 +879,7 @@ p3_image_anaconda:
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_ANACONDA_PYTHON_VER: 3
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
   properties:
     os_distro: "centos"
     os_version: "7.8"
