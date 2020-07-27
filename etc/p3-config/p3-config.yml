@@ -634,6 +634,7 @@ p3_flavor_storage_B:
 
 p3_images:
   - "{{ p3_image_centos }}"
+  - "{{ p3_image_centos7 }}"
   - "{{ p3_image_ubuntu }}"
   - "{{ p3_image_fedora }}"
   - "{{ p3_image_openhpc }}"
@@ -659,7 +660,7 @@ p3_image_fedora_coreos:
     os_distro: "fedora-coreos"
     os_version: "30"
 
-# Latest CentOS image
+# Latest CentOS 8
 p3_image_centos:
   name: "CentOS8.2"
   elements:
@@ -673,17 +674,40 @@ p3_image_centos:
     - "cloud-init-datasources"
     - "systemd-modules-load"
   env:
+    BASE_IMAGE_FILE:  "CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
-    DIB_CLOUD_INIT_DATASOURCES: "Ec2"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
       ib_ipoib
       mlx5_ib
-    DIB_RELEASE: 8
   properties:
     os_distro: "centos"
     os_version: "8.2"
+  
+# Latest CentOS 7
+p3_image_centos7:
+  name: "CentOS7.8"
+  elements:
+    - "centos"
+    - "epel"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+    - "dracut-regenerate"
+    - "cloud-init-datasources"
+  env:
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
+    DIB_RELEASE: 7
+  properties:
+    os_distro: "centos"
+    os_version: "7.8"
 
 # Latest Ubuntu image
 p3_image_ubuntu:
@@ -725,7 +749,7 @@ p3_image_ubuntu_cuda:
 
 # Latest Fedora Core image
 p3_image_fedora:
-  name: "FedoraCore29"
+  name: "FedoraCore31"
   elements:
     - "fedora"
     - "dracut-regenerate"
@@ -734,13 +758,13 @@ p3_image_fedora:
     - "alaska-extras"
     - "vm"
   env:
-    DIB_RELEASE: 29
+    DIB_RELEASE: 31
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
-    os_version: "29"
+    os_version: "31"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
