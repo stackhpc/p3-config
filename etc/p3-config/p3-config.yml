@@ -685,7 +685,7 @@ p3_image_centos:
   properties:
     os_distro: "centos"
     os_version: "8.2"
-  
+
 # Latest CentOS 7
 p3_image_centos7:
   name: "CentOS7.8"
@@ -885,7 +885,7 @@ p3_image_git_elements:
     version: "v1.1.0"
 
 # Path to include
-p3_image_elements: 
+p3_image_elements:
   - "{{ p3_image_stackhpc_elements }}/elements"
 
 # Diskimage builder version
