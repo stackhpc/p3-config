@@ -704,7 +704,7 @@ p3_image_centos7:
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
-    DIB_RELEASE: 7
+    DIB_RELEASE: "7"
   properties:
     os_distro: "centos"
     os_version: "7.8"
@@ -770,7 +770,7 @@ p3_image_fedora:
 p3_image_openhpc:
   name: "CentOS7.8-OpenHPC"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "openhpc"
     - "selinux-permissive"
@@ -779,6 +779,8 @@ p3_image_openhpc:
     - "vm"
     - "systemd-modules-load"
   env:
+    DIB_RELEASE: "7"
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
     DIB_OPENHPC_PKGLIST: >
         ntp fio strace flex bison infiniband-diags boost boost-devel fftw fftw-devel vim emacs git git-lfs
@@ -804,7 +806,7 @@ p3_image_openhpc:
 p3_image_centos_cuda:
   name: "CentOS7.8-CUDA"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "nvidia-cuda"
     - "selinux-permissive"
@@ -812,6 +814,8 @@ p3_image_centos_cuda:
     - "dhcp-all-interfaces"
     - "vm"
   env:
+    DIB_RELEASE: "7"
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone python36"
     DIB_ALASKA_DELETE_REPO: "y"
@@ -824,12 +828,11 @@ p3_image_centos_cuda:
 p3_image_centos_ofed:
   name: "CentOS7.8-OFED5.0"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "mlnx-ofed"
     - "selinux-permissive"
     - "alaska-extras"
-    - "openssh-server"
     - "dhcp-all-interfaces"
     - "vm"
     - "systemd-modules-load"
@@ -855,7 +858,7 @@ p3_image_centos_ofed:
 p3_image_anaconda:
   name: "CentOS7.8-Anaconda3"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "anaconda"
     - "selinux-permissive"
@@ -863,6 +866,8 @@ p3_image_anaconda:
     - "dhcp-all-interfaces"
     - "vm"
   env:
+    DIB_RELEASE: "7"
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
     DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
