@@ -634,6 +634,7 @@ p3_flavor_storage_B:
 
 p3_images:
   - "{{ p3_image_centos }}"
+  - "{{ p3_image_centos7 }}"
   - "{{ p3_image_ubuntu }}"
   - "{{ p3_image_fedora }}"
   - "{{ p3_image_openhpc }}"
@@ -659,20 +660,53 @@ p3_image_fedora_coreos:
     os_distro: "fedora-coreos"
     os_version: "30"
 
-# Latest CentOS image
+# Latest CentOS 8
 p3_image_centos:
-  name: "CentOS7.8"
+  name: "CentOS8.2"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "selinux-permissive"
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "dracut-regenerate"
+    - "cloud-init-datasources"
+    - "systemd-modules-load"
   env:
+    BASE_IMAGE_FILE:  "CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
+      # Load the IP over IB module prior to running cloud-init --local.
+      ib_ipoib
+      # Load the Mellanox IB driver.
+      mlx5_ib
+  properties:
+    os_distro: "centos"
+    os_version: "8.2"
+
+# Latest CentOS 7
+p3_image_centos7:
+  name: "CentOS7.8"
+  elements:
+    - "centos"
+    - "epel"
+    - "selinux-permissive"
+    - "alaska-extras"
+    - "dhcp-all-interfaces"
+    - "vm"
+    - "dracut-regenerate"
+    - "cloud-init-datasources"
+  env:
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
+    DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
+    DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
+    DIB_RELEASE: "7"
   properties:
     os_distro: "centos"
     os_version: "7.8"
@@ -717,7 +751,7 @@ p3_image_ubuntu_cuda:
 
 # Latest Fedora Core image
 p3_image_fedora:
-  name: "FedoraCore29"
+  name: "FedoraCore31"
   elements:
     - "fedora"
     - "dracut-regenerate"
@@ -726,19 +760,19 @@ p3_image_fedora:
     - "alaska-extras"
     - "vm"
   env:
-    DIB_RELEASE: 29
+    DIB_RELEASE: 31
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
   properties:
     os_distro: "fedora"
-    os_version: "29"
+    os_version: "31"
 
 # Build of OpenHPC on CentOS
 p3_image_openhpc:
   name: "CentOS7.8-OpenHPC"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "openhpc"
     - "selinux-permissive"
@@ -746,7 +780,10 @@ p3_image_openhpc:
     - "dhcp-all-interfaces"
     - "vm"
     - "systemd-modules-load"
+    - "cloud-init-datasources"
   env:
+    DIB_RELEASE: "7"
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
     DIB_OPENHPC_PKGLIST: >
         ntp fio strace flex bison infiniband-diags boost boost-devel fftw fftw-devel vim emacs git git-lfs
@@ -757,8 +794,9 @@ p3_image_openhpc:
         openmpi3-gnu7-ohpc scalapack-gnu7-openmpi3-ohpc phdf5-gnu7-openmpi3-ohpc imb-gnu7-openmpi3-ohpc
     DIB_OPENHPC_DELETE_REPO: "n"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python35"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
       # Load the IP over IB module prior to running cloud-init --local.
       ib_ipoib
@@ -772,18 +810,22 @@ p3_image_openhpc:
 p3_image_centos_cuda:
   name: "CentOS7.8-CUDA"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "nvidia-cuda"
     - "selinux-permissive"
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "cloud-init-datasources"
   env:
+    DIB_RELEASE: "7"
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone python36"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_NVIDIA_CUDA_DELETE_REPO: "n"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
   properties:
     os_distro: "centos"
     os_version: "7.8"
@@ -792,7 +834,7 @@ p3_image_centos_cuda:
 p3_image_centos_ofed:
   name: "CentOS7.8-OFED5.0"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "mlnx-ofed"
     - "selinux-permissive"
@@ -800,6 +842,7 @@ p3_image_centos_ofed:
     - "dhcp-all-interfaces"
     - "vm"
     - "systemd-modules-load"
+    - "cloud-init-datasources"
   env:
     DIB_MLNX_OFED_REPO_FILE: ""
     DIB_MLNX_OFED_REPO: "http://10.41.253.100:4120/MLNX_OFED_LINUX-5.0-2.1.8.0-rhel7.8-ext"
@@ -807,8 +850,9 @@ p3_image_centos_ofed:
     DIB_MLNX_OFED_DELETE_REPO: "y"
     DIB_MLNX_OFED_PKGLIST: "--nogpgcheck mlnx-ofed-kernel-only mlnx-fw-updater"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
     DIB_SYSTEMD_MODULES_LOAD_CONTENT: |
       # Load the IP over IB module prior to running cloud-init --local.
       ib_ipoib
@@ -822,18 +866,22 @@ p3_image_centos_ofed:
 p3_image_anaconda:
   name: "CentOS7.8-Anaconda3"
   elements:
-    - "centos7"
+    - "centos"
     - "epel"
     - "anaconda"
     - "selinux-permissive"
     - "alaska-extras"
     - "dhcp-all-interfaces"
     - "vm"
+    - "cloud-init-datasources"
   env:
+    DIB_RELEASE: "7"
+    BASE_IMAGE_FILE: "CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
     DIB_ALASKA_REPO: "{{ p3_repo_server_url_alaska_extras }}"
-    DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+    DIB_ALASKA_PKGLIST: "pam-keystone"
     DIB_ALASKA_DELETE_REPO: "y"
     DIB_ANACONDA_PYTHON_VER: 3
+    DIB_CLOUD_INIT_DATASOURCES: "Ec2, ConfigDrive, OpenStack"
   properties:
     os_distro: "centos"
     os_version: "7.8"
@@ -847,8 +895,11 @@ p3_image_git_elements:
     version: "v1.1.0"
 
 # Path to include
-p3_image_elements: 
+p3_image_elements:
   - "{{ p3_image_stackhpc_elements }}/elements"
+
+# Diskimage builder version
+p3_image_dib_version: "3.1.0"
 
 # URL of the ALaSKA repo server.
 p3_repo_server_url_base: "http://10.41.253.100:4120"

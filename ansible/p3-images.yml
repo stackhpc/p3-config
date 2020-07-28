@@ -12,3 +12,4 @@
       os_images_list: "{{ p3_images }}"
       os_images_elements: "{{ p3_image_elements }}"
       os_images_git_elements: "{{ p3_image_git_elements }}"
+      os_images_dib_version: "{{ p3_image_dib_version }}"

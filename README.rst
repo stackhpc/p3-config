@@ -21,8 +21,8 @@ packages. For example:
 
 .. code-block::
 
-   $ virtualenv venv
-   $ source venv/bin/activate
+   $ python3 -m venv p3-config-venv
+   $ source p3-config-venv/bin/activate
    $ pip install -U pip
    $ pip install -r requirements.txt
 
