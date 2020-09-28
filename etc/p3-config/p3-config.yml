@@ -319,6 +319,7 @@ p3_networks:
   - "{{ p3_network_internal }}"
   - "{{ p3_network_bdn }}"
   - "{{ p3_network_lln }}"
+  - "{{ octavia_network }}"
 
 # P3 i-lab network name.
 p3_network_ilab_name: "ilab"
@@ -430,6 +431,63 @@ p3_bdn_router:
   interfaces:
     - "{{ p3_subnet_bdn.name }}"
 
+# Octavia network name.
+octavia_network_name: "octavia"
+
+# Octavia network.
+octavia_network:
+  name: "{{ octavia_network_name }}"
+  project: "service"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 148
+  shared: False
+  # Subnet configuration.
+  subnets:
+    - "{{ octavia_subnet }}"
+
+# Octavia subnet.
+octavia_subnet:
+  name: "{{ octavia_network_name }}"
+  project: "service"
+  cidr: "10.48.0.0/16"
+  enable_dhcp: true
+  allocation_pool_start: "10.48.253.2"
+  allocation_pool_end: "10.48.253.254"
+
+# P3 security groups.
+p3_security_groups:
+  - "{{ octavia_sg }}"
+
+# Octavia security group.
+octavia_sg:
+  name: octavia-sg
+  description: "Octavia security group"
+  project: service
+  rules:
+    - protocol: udp
+      port_range_min: 5555
+      port_range_max: 5555
+      remote_ip_prefix: "0.0.0.0/0"
+    - protocol: udp
+      port_range_min: 10514
+      port_range_max: 10514
+      remote_ip_prefix: "0.0.0.0/0"
+    - protocol: udp
+      port_range_min: 20514
+      port_range_max: 20514
+      remote_ip_prefix: "0.0.0.0/0"
+    - protocol: tcp
+      port_range_min: 9443
+      port_range_max: 9443
+      remote_ip_prefix: "0.0.0.0/0"
+    - protocol: tcp
+      port_range_min: 22
+      port_range_max: 22
+      remote_ip_prefix: "0.0.0.0/0"
+    - protocol: icmp
+      remote_ip_prefix: "0.0.0.0/0"
+
 ###############################################################################
 # Configuration of nova flavors for P-cubed.
 
@@ -437,6 +495,12 @@ p3_bdn_router:
 # stackhpc.os-flavors role.
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
+  - "{{ p3_flavor_general_xlarge }}"
+  - "{{ p3_flavor_general_large }}"
+  - "{{ p3_flavor_general_medium }}"
+  - "{{ p3_flavor_general_small }}"
+  - "{{ p3_flavor_general_tiny }}"
+  - "{{ octavia_flavor_tiny }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -449,6 +513,61 @@ p3_flavor_compute_A:
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
+
+p3_flavor_general_xlarge:
+  name: "general.v1.xlarge"
+  vcpus: 28
+  ram: 184320
+  disk: 20
+  ephemeral: 340
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_large:
+  name: "general.v1.large"
+  vcpus: 28
+  ram: 92160
+  disk: 20
+  ephemeral: 160
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_medium:
+  name: "general.v1.medium"
+  vcpus: 14
+  ram: 46080
+  disk: 20
+  ephemeral: 60
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_small:
+  name: "general.v1.small"
+  vcpus: 6
+  ram: 22528
+  disk: 20
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+p3_flavor_general_tiny:
+  name: "general.v1.tiny"
+  vcpus: 2
+  ram: 6144
+  disk: 12
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
+
+octavia_flavor_tiny:
+  name: "amphora.v1.tiny"
+  vcpus: 1
+  ram: 2048
+  disk: 12
+  ephemeral: 0
+  is_public: false
+  extra_specs:
+    "hw_rng:allowed": "True"
 
 ###############################################################################
 # Software images for P-cubed
