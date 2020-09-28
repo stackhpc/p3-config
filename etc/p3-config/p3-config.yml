@@ -278,6 +278,14 @@ p3_users:
           3035366464396331660a376139613638386631303063393461656664633161656363623533373966
           66613863633164323136646236653766626534616264333766663833626633633661326664656661
           6435303733646532613764633032646334633239666436323263
+  - name: bartosz
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32643038613438313130363464613737383138346665323265643138633034353164383362323034
+          6337306330363434626239366161306435616637633234620a376630313666393538353165333730
+          30636262653465613836663635623433626137346335356338643531386533356363666436393337
+          6362336133363033370a306461646162366239663030616530313539376130363964376138303530
+          3636
     roles: "{{ p3_admin_roles }}"
 
 # List of roles to apply to admin users in the p3 project.
@@ -495,12 +503,16 @@ octavia_sg:
 # stackhpc.os-flavors role.
 p3_flavors:
   - "{{ p3_flavor_compute_A }}"
-  - "{{ p3_flavor_general_xlarge }}"
   - "{{ p3_flavor_general_large }}"
   - "{{ p3_flavor_general_medium }}"
   - "{{ p3_flavor_general_small }}"
   - "{{ p3_flavor_general_tiny }}"
   - "{{ octavia_flavor_tiny }}"
+  - "{{ p3_flavor_opt_large }}"
+  - "{{ p3_flavor_opt_medium }}"
+  - "{{ p3_flavor_opt_small }}"
+  - "{{ p3_flavor_opt_tiny }}"
+  - "{{ p3_flavor_unopt_large }}"
 
 # ALaSKA standard compute node.
 p3_flavor_compute_A:
@@ -513,15 +525,6 @@ p3_flavor_compute_A:
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
-
-p3_flavor_general_xlarge:
-  name: "general.v1.xlarge"
-  vcpus: 28
-  ram: 184320
-  disk: 20
-  ephemeral: 340
-  extra_specs:
-    "hw_rng:allowed": "True"
 
 p3_flavor_general_large:
   name: "general.v1.large"
@@ -569,6 +572,96 @@ octavia_flavor_tiny:
   extra_specs:
     "hw_rng:allowed": "True"
 
+p3_flavor_opt_tiny:
+  name: "optimised.v1.tiny"
+  vcpus: 1
+  ram: 6144
+  disk: 12
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 1
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 1
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_small:
+  name: "optimised.v1.small"
+  vcpus: 2
+  ram: 22528
+  disk: 20
+  ephemeral: 0
+  extra_specs:
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 2
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 2
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_medium:
+  name: "optimised.v1.medium"
+  vcpus: 5
+  ram: 46080
+  disk: 20
+  ephemeral: 60
+  extra_specs:
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": 1
+    "hw:cpu_cores": 5
+    "hw:cpu_threads": 1
+    "hw:cpu_maxsockets": 1
+    "hw:cpu_maxcores": 5
+    "hw:cpu_maxthreads": 1
+
+p3_flavor_opt_large:
+  name: "optimised.v1.large"
+  vcpus: 11
+  ram: 92160
+  disk: 20
+  ephemeral: 160
+  extra_specs:
+    "hw_rng:allowed": "True"
+    "hw:mem_page_size": large
+    "hw:numa_nodes": "1"
+    "hw:pci_numa_affinity_policy": required
+    "hw:cpu_policy": dedicated
+    "hw:emulator_threads_policy": share
+    "hw:cpu_sockets": "1"
+    "hw:cpu_cores": "11"
+    "hw:cpu_threads": "1"
+    "hw:cpu_maxsockets": "1"
+    "hw:cpu_maxcores": "11"
+    "hw:cpu_maxthreads": "1"
+
+# NOTE(wszumski): This should match the optimised version minus the extra specs.
+p3_flavor_unopt_large:
+  name: "unoptimised.v1.large"
+  vcpus: 11
+  ram: 92160
+  disk: 20
+  ephemeral: 160
+  extra_spcs:
+    "hw_rng:allowed": "True"
+
 ###############################################################################
 # Software images for P-cubed
 
@@ -582,6 +675,11 @@ p3_images:
   - "{{ p3_image_mlnx_ofed }}"
   - "{{ p3_image_anaconda }}"
   - "{{ p3_image_fedora_atomic }}"
+  - "{{ p3_image_centos_7_8 }}"
+  - "{{ p3_image_centos_8_2 }}"
+  - "{{ p3_image_ubuntu_20_04 }}"
+  - "{{ p3_image_ubuntu_18_04 }}"
+  - "{{ p3_image_ubuntu_18_04_unoptimised }}"
 
 # Fedora Atomic 29 image
 p3_image_fedora_atomic:
@@ -590,6 +688,86 @@ p3_image_fedora_atomic:
   properties:
     os_distro: "fedora-atomic"
     os_version: "29"
+
+# Ubuntu focal image
+p3_image_ubuntu_20_04:
+  name: "ubuntu-20.04"
+  image_url: "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"
+  properties:
+    os_distro: "ubuntu"
+    os_version: "20.04"
+    hw_pci_numa_affinity_policy: required
+    hw_machine_type: q35
+    hw_disk_bus: scsi
+    hw_scsi_model: virtio-scsi
+    hw_cdrom_bus: scsi
+    hw_rescue_bus: sata
+    hw_video_model: virtio
+    hw_serial_port_count: 0
+    hw_vif_multiqueue_enabled: true
+    hw_emulator_threads_policy : shared
+
+# Centos 8.2
+p3_image_centos_8_2:
+  name: "centos-8.2"
+  image_url: "https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2"
+  properties:
+    os_distro: "centos"
+    os_version: "8.2"
+    hw_pci_numa_affinity_policy: required
+    hw_machine_type: q35
+    hw_disk_bus: scsi
+    hw_scsi_model: virtio-scsi
+    hw_cdrom_bus: scsi
+    hw_rescue_bus: sata
+    hw_video_model: virtio
+    hw_serial_port_count: 0
+    hw_vif_multiqueue_enabled: true
+    hw_emulator_threads_policy: shared
+
+# Centos 7.8
+p3_image_centos_7_8:
+  name: "centos-7.8"
+  image_url: "https://cloud.centos.org/centos/7/images/CentOS-7-aarch64-GenericCloud-2003.qcow2"
+  properties:
+    os_distro: "centos"
+    os_version: "7.8"
+    hw_pci_numa_affinity_policy: required
+    hw_machine_type: q35
+    hw_disk_bus: scsi
+    hw_scsi_model: virtio-scsi
+    hw_cdrom_bus: scsi
+    hw_rescue_bus: sata
+    hw_video_model: virtio
+    hw_serial_port_count: 0
+    hw_vif_multiqueue_enabled: true
+    hw_emulator_threads_policy: shared
+
+# Ubuntu 18.04
+p3_image_ubuntu_18_04:
+  name: "ubuntu-18.04"
+  image_url: "https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
+  properties:
+    os_distro: "ubuntu"
+    os_version: "18.04"
+    hw_pci_numa_affinity_policy: required
+    hw_machine_type: q35
+    hw_disk_bus: scsi
+    hw_scsi_model: virtio-scsi
+    hw_cdrom_bus: scsi
+    hw_rescue_bus: sata
+    hw_video_model: virtio
+    hw_serial_port_count: 0
+    hw_vif_multiqueue_enabled: true
+    hw_emulator_threads_policy: shared
+
+# Ubuntu 18.04 unoptimised (used for benchmark comparisons)
+p3_image_ubuntu_18_04_unoptimised:
+  name: "ubuntu-18.04-unoptimised"
+  image_url: "https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
+  properties:
+    os_distro: "ubuntu"
+    os_version: "18.04"
 
 # Latest CentOS image
 p3_image_centos:
@@ -776,7 +954,7 @@ p3_image_git_elements:
     version: "v1.0.0"
 
 # Path to include
-p3_image_elements: 
+p3_image_elements:
   - "{{ p3_image_stackhpc_elements }}/elements"
 
 # URL of the ALaSKA repo server.
