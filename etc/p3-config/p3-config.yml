@@ -422,6 +422,7 @@ p3_networks:
   - "{{ p3_network_ilab }}"
   - "{{ p3_network_internal }}"
   - "{{ p3_network_bdn }}"
+  - "{{ p3_network_bdn_gw }}"
   - "{{ p3_network_lln }}"
   - "{{ octavia_network }}"
 
@@ -480,6 +481,7 @@ p3_network_bdn:
   name: "{{ p3_network_bdn_name }}"
   provider_network_type: "vlan"
   provider_physical_network: "physnet2"
+  provider_segmentation_id: 1115
   shared: False
   # Subnet configuration.
   subnets:
@@ -489,10 +491,32 @@ p3_network_bdn:
 p3_subnet_bdn:
   name: "{{ p3_network_bdn_name }}"
   cidr: "10.1.0.0/24"
-  allocation_pool_start: "10.1.0.1"
   dns_nameservers:
   - "0.0.0.0"
+  allocation_pool_start: "10.1.0.2"
   allocation_pool_end: "10.1.0.254"
+
+# P3 Bulk Data Network (BDN) network with gateway name.
+p3_network_bdn_gw_name: "p3-bdn-gw"
+
+# P3 Bulk Data Network (BDN) network with gateway.
+p3_network_bdn_gw:
+  name: "{{ p3_network_bdn_gw_name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet2"
+  provider_segmentation_id: 1116
+  shared: False
+  # Subnet configuration.
+  subnets:
+    - "{{ p3_subnet_bdn_gw }}"
+
+# P3 Bulk Data Network (BDN) subnet with gateway.
+p3_subnet_bdn_gw:
+  name: "{{ p3_network_bdn_gw_name }}"
+  cidr: "10.1.1.0/24"
+  gateway_ip: "10.1.1.1"
+  allocation_pool_start: "10.1.1.2"
+  allocation_pool_end: "10.1.1.254"
 
 # P3 Low Latency Network (LLN) network name.
 p3_network_lln_name: "p3-lln"
@@ -533,7 +557,7 @@ p3_bdn_router:
   name: "{{ p3_network_bdn_name }}"
   network: "{{ p3_network_ilab_name }}"
   interfaces:
-    - "{{ p3_subnet_bdn.name }}"
+    - "{{ p3_subnet_bdn_gw.name }}"
 
 # Octavia network name.
 octavia_network_name: "octavia"
